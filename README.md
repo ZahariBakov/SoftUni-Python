@@ -1,1 +1,1 @@
-https://softuni.bg/trainings/courses
+Course lab and exams - SoftUni
