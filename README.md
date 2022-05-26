@@ -1,2 +1,1 @@
-# SoftUni-Python
-Course lab and exams - SoftUni
+https://softuni.bg/trainings/courses
