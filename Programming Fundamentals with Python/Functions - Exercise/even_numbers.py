@@ -1,18 +1,15 @@
 numbers = list(map(int, input().split(" ")))
 
 
-def even_numbers(x):
-    if x % 2 == 0:
+def even_numbers(number):
+    if number % 2 == 0:
         return True
-    else:
-        return False
+
+    return False
 
 
 filtered_numbers = filter(even_numbers, numbers)
-even_list = []
-
-for x in filtered_numbers:
-    even_list.append(x)
+even_list = list(filtered_numbers)
 
 print(even_list)
 
