@@ -23,15 +23,15 @@
 
 # Decision with string:
 #
-string = input().split(", ")
-
 
 def is_palindrome(number):
-    result = ""
-    for i in range(len(number) - 1, -1, -1):
-        result += number[i]
-    return result == number
+    for num in number:
+        if num == num[::-1]:
+            print("True")
+        else:
+            print("False")
 
 
-for number in string:
-    print(is_palindrome(number))
+string = input().split(", ")
+
+is_palindrome(string)
