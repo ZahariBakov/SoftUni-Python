@@ -1,31 +1,35 @@
-password = input()
-
-
-def password_validator(text):
-    valid_password = True
-    digit = 0
-    letters_in_password = 0
-
-    if len(text) < 6 or 10 < len(text):
-        valid_password = False
+def length_valid(text):
+    if 6 <= len(text) <= 10:
+        return True
+    else:
         print("Password must be between 6 and 10 characters")
+        return False
 
+
+def two_digits(text):
+    digit = 0
     for char in text:
         if char.isdigit():
             digit += 1
-        else:
-            if 65 <= ord(char) <= 90 or 97 <= ord(char) <= 122:
-                letters_in_password += 1
-
-    if letters_in_password + digit != len(text):
-        valid_password = False
-        print("Password must consist only of letters and digits")
-    if digit < 2:
-        valid_password = False
+    if digit >= 2:
+        return True
+    else:
         print("Password must have at least 2 digits")
-
-    if valid_password:
-        print("Password is valid")
+        return False
 
 
-password_validator(password)
+def is_letters_and_digit(text):
+    if text.isalnum():
+        return True
+    else:
+        print("Password must consist only of letters and digits")
+        return False
+
+
+password = input()
+password_validator = [length_valid(password), two_digits(password), is_letters_and_digit(password)]
+
+if all(password_validator):
+    print("Password is valid")
+
+
