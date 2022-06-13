@@ -8,8 +8,8 @@ def even_numbers(number):
     return False
 
 
-filtered_numbers = filter(even_numbers, numbers)
-even_list = list(filtered_numbers)
+filtered_numbers = list(filter(even_numbers, numbers))
 
-print(even_list)
+print(filtered_numbers)
+
 
