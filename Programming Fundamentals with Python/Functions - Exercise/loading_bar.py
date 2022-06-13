@@ -1,17 +1,9 @@
+def loading_bar(bar_volume):
+    if bar_volume == 100:
+        return "100% Complete!\n[%%%%%%%%%%]"
+    else:
+        return f"{bar_volume}% [{'%' * (bar_volume // 10)}{'.' * (10 - (bar_volume // 10))}]\nStill loading..."
+
+
 number = int(input())
-
-percent = number // 10
-points = 10 - percent
-
-repeat_string = lambda a, b: a * b
-
-repeat_points = repeat_string(".", points)
-repeat_percent = repeat_string("%", percent)
-
-
-if number < 100:
-    print(f"{number}% [{repeat_percent}{repeat_points}]")
-    print("Still loading...")
-else:
-    print("100% Complete!")
-    print("[%%%%%%%%%%]")
+print(loading_bar(number))
