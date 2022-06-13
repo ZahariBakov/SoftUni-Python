@@ -2,8 +2,8 @@ def add_and_subtract(a, b, c):
     def sum_numbers(a, b):
         return a + b
 
-    def subtract(a, b):
-        return a - b
+    def subtract(sum, c):
+        return sum - c
 
     sum = sum_numbers(first_num, second_num)
     result = subtract(sum, third_num)
