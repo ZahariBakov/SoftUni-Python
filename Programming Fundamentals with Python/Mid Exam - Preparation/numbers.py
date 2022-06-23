@@ -1,19 +1,20 @@
 numbers = list(map(int, input().split()))
 
-average = sum(numbers) / len(numbers)
-greater_numbers = []
+sum = sum(numbers)
+elements = len(numbers)
+average = sum / elements
+top_five = []
+found = False
 
-for number in range(len(numbers)):
-    current_number = max(numbers)
-    if current_number > average:
-        greater_numbers.append(current_number)
-        numbers.remove(current_number)
-        if len(greater_numbers) == 5:
-            break
-    else:
-        break
-if greater_numbers != []:
-    greater_numbers = [str(number) for number in greater_numbers]
-    print(" ".join(greater_numbers))
+for number in numbers[::]:
+    if number > average:
+        top_five.append(number)
+        found = True
+top_five = sorted(top_five, reverse=True)
+while len(top_five) > 5:
+    top_five.pop()
+
+if found:
+    print(" ".join(str(a) for a in top_five))
 else:
     print("No")
