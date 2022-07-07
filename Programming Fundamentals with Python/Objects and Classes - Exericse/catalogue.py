@@ -10,9 +10,8 @@ class Catalogue:
         return [product for product in self.products if product.startswith(first_letter)]
 
     def __repr__(self):
-        self.products = sorted(self.products)
         string = f"Items in the {self.name} catalogue:\n"
-        string += "\n".join(self.products)
+        string += "\n".join(sorted(self.products))
 
         return string
 
