@@ -1,6 +1,4 @@
-from collections import defaultdict
-
-phonebook = defaultdict(list)
+phonebook = {}
 
 while True:
     command = input()
