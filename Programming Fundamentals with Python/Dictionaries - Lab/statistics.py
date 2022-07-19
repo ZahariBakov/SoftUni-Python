@@ -16,5 +16,5 @@ while True:
 print("Products in stock:")
 for (key, value) in products.items():
     print(f"- {key}: {value}")
-print(f"Total Products: {len(products.keys())}")
+print(f"Total Products: {len(products)}")
 print(f"Total Quantity: {sum(products.values())}")
