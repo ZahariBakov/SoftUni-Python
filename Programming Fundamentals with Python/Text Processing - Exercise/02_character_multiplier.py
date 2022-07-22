@@ -1,23 +1,23 @@
-def shorter_text(long, short, sum):
-    for i in range(len(short)):
-        sum += ord(long[i]) * ord(short[i])
+def shorter_text(long, short, sum_of_characters):
+    for short_index in range(len(short)):
+        sum_of_characters += ord(long[short_index]) * ord(short[short_index])
 
-    for j in range(i + 1, len(long)):
-        sum += ord(long[j])
+    for long_index in range(short_index + 1, len(long)):
+        sum_of_characters += ord(long[long_index])
 
-    return sum
+    return sum_of_characters
 
 
 first, second = input().split(" ")
-sum = 0
+total_sum = 0
 
 if len(first) > len(second):
-    print(shorter_text(first, second, sum))
+    print(shorter_text(first, second, total_sum))
 
 elif len(first) < len(second):
-    print(shorter_text(second, first, sum))
+    print(shorter_text(second, first, total_sum))
 
 else:
     for i in range(len(first)):
-        sum += ord(first[i]) * ord(second[i])
-    print(sum)
+        total_sum += ord(first[i]) * ord(second[i])
+    print(total_sum)
