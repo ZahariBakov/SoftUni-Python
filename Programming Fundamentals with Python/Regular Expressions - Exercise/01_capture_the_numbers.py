@@ -8,8 +8,6 @@ while True:
     if line:
         match = re.findall(pattern, line)
         if match:
-            result += ' '.join(match) + ' '
+            print(' '.join(match), end=" ")
     else:
         break
-
-print(result)
