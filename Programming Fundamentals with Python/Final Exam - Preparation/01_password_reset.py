@@ -3,31 +3,28 @@ command = input()
 
 while command != "Done":
 
-    new_password = ""
+    command = command.split(' ')
 
-    if command == "TakeOdd":
-        for index in range(1, len(password), 2):
-            new_password += password[index]
-        print(new_password)
+    if "TakeOdd" == command[0]:
+        password = ''.join([password[i] for i in range(1, len(password), 2)])
+        print(password)
 
-    elif "Cut" in command:
-        name, index, length = command.split(" ")
-        new_password = list(password)
-        for _ in range(int(length)):
-            new_password.pop(int(index))
-        new_password = ''.join(new_password)
-        print(new_password)
+    elif "Cut" == command[0]:
+        index = int(command[1])
+        length = int(command[2])
+        password = ''.join([password[i] for i in range(len(password)) if i < index or i >= index + length])
+        print(password)
 
-    else:
-        name, substring, substitute = command.split(" ")
+    elif "Substitute" == command[0]:
+        substring = command[1]
+        substitute = command[2]
+
         if substring in password:
-            new_password = password.replace(substring, substitute)
-            print(new_password)
+            password = password.replace(substring, substitute)
+            print(password)
         else:
             print("Nothing to replace!")
 
-    if new_password:
-        password = new_password
     command = input()
 
 print(f'Your password is: {password}')
