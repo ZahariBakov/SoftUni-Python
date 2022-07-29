@@ -40,7 +40,6 @@ while True:
     if command[0] == "Add Stop":
         index = int(command[1])
         string = command[2]
-
         travel = add_stop(travel, index, string)
 
     elif command[0] == "Remove Stop":
