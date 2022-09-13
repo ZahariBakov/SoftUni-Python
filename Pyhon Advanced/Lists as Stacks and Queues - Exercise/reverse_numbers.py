@@ -1,9 +1,5 @@
-original_number = input()
+stack = input().split()
 
-stack = original_number.split(" ")
-reversed_number = ""
 
 while stack:
-    reversed_number += stack.pop() + " "
-
-print(reversed_number)
+    print(stack.pop(), end=" ")

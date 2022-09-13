@@ -1,27 +1,25 @@
 stack = []
 lines = int(input())
-final_result = ""
+final_result = []
 
 for _ in range(lines):
-    command = input()
+    command = input().split()
 
-    if command.startswith("1"):
-        current_number = int(command.split(" ")[1])
+    if command[0] == "1":
+        current_number = int(command[1])
         stack.append(current_number)
 
-    elif command.startswith("2"):
-        if stack:
-            stack.pop()
+    elif command[0] == "2" and stack:
+        stack.pop()
 
-    elif command.startswith("3"):
+    elif command[0] == "3" and stack:
         print(max(stack))
 
-    elif command.startswith("4"):
+    elif command[0] == "4" and stack:
         print(min(stack))
 
 if stack:
     while stack:
-        final_result += str(stack.pop()) + ", "
+        final_result.append(str(stack.pop()))
 
-print(final_result[:-2])
-
+print(", ".join(final_result))
