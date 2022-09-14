@@ -1,36 +1,32 @@
 string = input()
 stack = []
+pairs = {
+    "(": ")",
+    "[": "]",
+    "{": "}"
+}
 balanced = True
 
 for ch in string:
-    if not balanced:
-        break
 
-    if ch == "(" or ch == "[" or ch == "{":
+    if ch in "([{":
         stack.append(ch)
 
     else:
         if not stack:
             balanced = False
-            break
+
         else:
-            if ch == ")":
-                if stack.pop() != "(":
-                    balanced = False
-                    break
+            opening_bracket = stack.pop()
 
-            elif ch == "]":
-                if stack.pop() != "[":
-                    balanced = False
-                    break
+            if pairs[opening_bracket] != ch:
+                balanced = False
 
-            elif ch == "}":
-                if stack.pop() != "{":
-                    balanced = False
-                    break
+    if not balanced:
+        break
 
-if balanced:
-    print("YES")
+if not balanced or stack:
+    print("NO")
 
 else:
-    print("NO")
+    print("YES")
