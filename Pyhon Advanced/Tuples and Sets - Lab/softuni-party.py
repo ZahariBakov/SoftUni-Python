@@ -1,15 +1,15 @@
 n = int(input())
-guests = set()
+guestс_list = set()
 
 for _ in range(n):
     guest = input()
-    guests.add(guest)
+    guestс_list.add(guest)
 
 guest_coming = input()
 
 while guest_coming != "END":
-    guests.discard(guest_coming)
+    guestс_list.discard(guest_coming)
     guest_coming = input()
 
-print(len(guests))
-print("\n".join(sorted(guests)))
+print(len(guestс_list))
+print("\n".join(sorted(guestс_list)))
