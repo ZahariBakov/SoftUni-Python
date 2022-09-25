@@ -2,44 +2,36 @@ from collections import deque
 
 green_light = int(input())
 free_window = int(input())
-time = green_light
-cars_and_command = deque()
+cars = deque()
 passed_cars = 0
-
 crash = False
 
 command = input()
 
 while command != "END":
-    cars_and_command.append(command)
-
-    command = input()
-
-while cars_and_command:
-    command = cars_and_command.popleft()
-
-    if command == "END":
-        break
-
     if command == "green":
         time = green_light
+        if cars:
+            while cars and time > 0:
+                current_car = cars.popleft()
 
-    elif time == 0:
-        continue
+                if time + free_window < len(current_car):
+                    crash_char = current_car[time + free_window]
+                    print("A crash happened!")
+                    print(f"{current_car} was hit at {crash_char}.")
+                    crash = True
+                    break
+                else:
+                    passed_cars += 1
+                    time -= len(current_car)
 
     else:
-        if time + free_window < len(command):
-            crash_char = command[time + free_window]
-            print("A crash happened!")
-            print(f"{command} was hit at {crash_char}.")
-            crash = True
-            break
+        cars.append(command)
 
-        else:
-            passed_cars += 1
-            time -= len(command)
-            if time < 0 :
-                time = 0
+    if crash:
+        break
+
+    command = input()
 
 if not crash:
     print("Everyone is safe.")
