@@ -26,7 +26,7 @@ while True:
         raise NameTooShortError('Name must be more than 4 characters')
 
     elif f'.{domain}' not in valid_domains:
-        raise InvalidDomainError('Domain must be one of the following: .com, .bg, .org, .net')
+        raise InvalidDomainError(f'Domain must be one of the following: {" ".join(valid_domains)}')
 
     else:
         print('Email s valid')
