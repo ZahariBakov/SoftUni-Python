@@ -10,6 +10,7 @@ def letters_symbols_count(text):
             letters += 1
         elif el in punctuation:
             symbols += 1
+
     return letters, symbols
 
 
