@@ -14,10 +14,11 @@ def letters_symbols_count(text):
     return letters, symbols
 
 
-file_path = './text.txt'
+input_file_path = './text.txt'
+output_file_path = './output.txt'
 
-with open(file_path) as input_file, \
-        open('./output.txt', 'w') as output_file:
+with open(input_file_path, 'r') as input_file, \
+        open(output_file_path, 'w') as output_file:
     idx = 1
     for line in input_file:
         count_letter, count_symbols = letters_symbols_count(line)
