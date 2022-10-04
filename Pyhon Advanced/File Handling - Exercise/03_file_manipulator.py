@@ -32,6 +32,6 @@ while True:
 
     else:
         try:
-            os.remove(file_name)
+            os.remove(f'./{file_name}')
         except FileNotFoundError:
             print("An error occurred")
