@@ -19,6 +19,5 @@ sorted_result = sorted(result)
 with open('./report.txt', 'w') as file:
     for key in sorted_result:
         file.write(f'.{key}\n')
-        for el in result[key]:
+        for el in sorted(result[key]):
             file.write(f'- - - {el}\n')
-

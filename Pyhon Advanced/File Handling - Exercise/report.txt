@@ -7,6 +7,8 @@
 - - - 02_line_numbers.py
 - - - 03_file_manipulator.py
 - - - 04_directory_traversal.py
+.rar
+- - - File Handling - Exercise.rar
 .txt
 - - - another_notes.txt
 - - - notes.txt
