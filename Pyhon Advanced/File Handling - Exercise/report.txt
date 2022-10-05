@@ -1,0 +1,15 @@
+.html
+- - - index.html
+.js
+- - - index.js
+.py
+- - - 01_even_lines.py
+- - - 02_line_numbers.py
+- - - 03_file_manipulator.py
+- - - 04_directory_traversal.py
+.txt
+- - - another_notes.txt
+- - - notes.txt
+- - - output.txt
+- - - report.txt
+- - - text.txt
