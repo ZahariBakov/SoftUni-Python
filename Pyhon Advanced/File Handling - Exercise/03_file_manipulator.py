@@ -22,10 +22,9 @@ while True:
         old_string, new_string = command_parts[2], command_parts[3]
 
         try:
-            with open(f'./{file_name}', 'r+') as file:
+            with open(f'./{file_name}', 'r') as file:
                 text = file.read().replace(old_string, new_string)
-                file.seek(0)
-                file.truncate()
+            with open(f'./{file_name}', 'w') as file:
                 file.write(text)
         except FileNotFoundError:
             print("An error occurred")
