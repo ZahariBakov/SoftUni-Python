@@ -6,6 +6,18 @@ class FullColumnError(Exception):
     pass
 
 
+def staring_game():
+    # Create matrix
+    rows_count = 6
+    cols_count = 7
+    board = [[0 for col in range(cols_count)] for row in range(rows_count)]
+
+    # Print initial board
+    print("This is game board")
+    print_matrix(board)
+    return board, cols_count
+
+
 # Print matrix
 def print_matrix(mrx):
     for el in mrx:
@@ -139,21 +151,14 @@ def check_index(matrix, row, col, player):
     return False
 
 
-# Create matrix
-rows_count = 6
-cols_count = 7
-board = [[0 for col in range(cols_count)] for row in range(rows_count)]
-
 print('Wellcome to the game "Four connect"!')
 
 first_player_name = input("Enter First player Name: ")
 second_player_name = input("Enter Second player Name: ")
 
-# Print initial board
-print("This is game board")
-print_matrix(board)
-
+board, cols_count = staring_game()
 player_num = 1
+
 while True:
     try:
         # Read column choice from input
@@ -166,7 +171,14 @@ while True:
                 print(f"The winner is player {first_player_name}!!!")
             else:
                 print(f"The winner is player {second_player_name}!!!")
-            break
+
+            new_game_choice = input("Do you want play another game? [y/n]: ")
+
+            if new_game_choice == 'y':
+                board, cols_count = staring_game()
+            else:
+                print("See you again!")
+                break
 
     except ValueError:
         # Not a valid number.
