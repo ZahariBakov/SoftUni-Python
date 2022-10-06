@@ -66,8 +66,6 @@ def is_horizontal(matrix, row, col, player, count):
             left.append(True)
         else:
             break
-    # right_count = [check_index(matrix, row, col + idx, player) for idx in range(count - 1)].count(True)
-    # left_count = [check_index(matrix, row, col - idx, player) for idx in range(count - 1)].count(True)
     # it should be strict '>' because we are counting the current element as well.
     return len(right + left) > count
 
@@ -89,8 +87,6 @@ def is_right_diagonal(matrix, row, col, player, count):
             left_down.append(True)
         else:
             break
-    # right_up_count = [check_index(matrix, row - idx, col + idx, player) for idx in range(count - 1)].count(True)
-    # left_down_count = [check_index(matrix, row + idx, col - idx, player) for idx in range(count - 1)].count(True)
     return len(right_up + left_down) > count
 
 
@@ -111,8 +107,6 @@ def is_left_diagonal(matrix, row, col, player, count):
             left_up.append(True)
         else:
             break
-    # left_up_count = [check_index(matrix, row-idx, col-idx, player) for idx in range(count - 1)].count(True)
-    # right_down_count = [check_index(matrix, row + idx, col + idx, player) for idx in range(count - 1)].count(True)
     return len(right_down + left_up) > count
 
 
@@ -123,24 +117,12 @@ def is_winner(matrix, row, col, player, count=4):
     Only down (because we fill the matrix from bottom to top.)
     Check for left and right diagonal.
     """
-    is_right = all([check_index(matrix, row, col + idx, player) for idx in range(count)])
-    is_left = all([check_index(matrix, row, col - idx, player) for idx in range(count)])
     is_down = all([check_index(matrix, row + idx, col, player) for idx in range(count)])
-    is_left_up = all([check_index(matrix, row - idx, col - idx, player) for idx in range(count)])
-    is_right_up = all([check_index(matrix, row - idx, col + idx, player) for idx in range(count)])
-    is_left_down = all([check_index(matrix, row + idx, col - idx, player) for idx in range(count)])
-    is_right_down = all([check_index(matrix, row + idx, col + idx, player) for idx in range(count)])
 
-    if any([  # is_right,
-        # is_left,
-        is_down,
-        # is_left_up,
-        # is_right_up,
-        # is_left_down,
-        # is_right_down,
-        is_horizontal(matrix, row, col, player, count),
-        is_right_diagonal(matrix, row, col, player, count),
-        is_left_diagonal(matrix, row, col, player, count)]):
+    if any([is_down,
+            is_horizontal(matrix, row, col, player, count),
+            is_right_diagonal(matrix, row, col, player, count),
+            is_left_diagonal(matrix, row, col, player, count)]):
         return True
     return False
 
