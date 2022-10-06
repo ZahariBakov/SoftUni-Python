@@ -6,11 +6,16 @@ class FullColumnError(Exception):
     pass
 
 
-def staring_game():
+# Start every new game.
+def staring_game(first_player, second_player):
     # Create matrix
     rows_count = 6
     cols_count = 7
     board = [[0 for col in range(cols_count)] for row in range(rows_count)]
+
+    # Defined who is "Player 1" and who is "Player 2", and print it.
+    print(f"{first_player} is Player 1")
+    print(f"{second_player} is Player 2")
 
     # Print initial board
     print("This is game board")
@@ -156,8 +161,15 @@ print('Wellcome to the game "Four connect"!')
 first_player_name = input("Enter First player Name: ")
 second_player_name = input("Enter Second player Name: ")
 
-board, cols_count = staring_game()
+board, cols_count = staring_game(first_player_name, second_player_name)
 player_num = 1
+winner = ''
+
+# Create file_path for statistics.
+file_path = './connect_four_result.txt'
+with open(file_path, 'w') as file:
+    pass
+
 
 while True:
     try:
@@ -168,14 +180,19 @@ while True:
         print_matrix(board)
         if is_winner(board, row, col, player_num):
             if player_num == 1:
-                print(f"The winner is player {first_player_name}!!!")
+                winner = first_player_name
             else:
-                print(f"The winner is player {second_player_name}!!!")
+                winner = second_player_name
+            print(f"The winner is player {winner}!!!")
+
+            # Create a file with results.
+            with open(file_path, 'a') as file:
+                file.write(f'{winner} is Win!\n')
 
             new_game_choice = input("Do you want play another game? [y/n]: ")
 
             if new_game_choice == 'y':
-                board, cols_count = staring_game()
+                board, cols_count = staring_game(first_player_name, second_player_name)
             else:
                 print("See you again!")
                 break
