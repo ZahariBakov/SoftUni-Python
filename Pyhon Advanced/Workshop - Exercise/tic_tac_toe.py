@@ -93,6 +93,7 @@ def check_for_draw(ma, size):
 
 
 def play_game(players, matrix, position):
+    current_position = ''
     while True:
         player_name, player_sign = players[0]
         try:
