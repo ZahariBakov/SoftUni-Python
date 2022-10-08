@@ -6,6 +6,25 @@ class NonValidNumber(Exception):
     pass
 
 
+def get_name(player_number):
+    while True:
+        with sr.Microphone() as source:
+            r = sr.Recognizer()
+            print(f"Player {player_number}, say your name")
+
+            audio_data = r.record(source, duration=3)
+            print("Recognizing...")
+            try:
+                name = r.recognize_google(audio_data)
+            except sr.UnknownValueError:
+                print("Please say your name again")
+
+            print(f"Player {player_number} is {name}.")
+            decision = input("Do you want to say your name again? [y/n] ")
+            if decision == 'n':
+                return name
+
+
 def verify_number(num, positions):
     if num not in positions:
         raise NonValidNumber
@@ -15,22 +34,8 @@ def creating_players():
     figlet = Figlet(font='big')
     print(figlet.renderText("Tic-Tac-Toe"))
 
-    with sr.Microphone() as source:
-        r = sr.Recognizer()
-
-        print("Player one, say your name")
-
-        audio_data = r.record(source, duration=2)
-        print("Recognizing....")
-        first_player_name = r.recognize_google(audio_data)
-        print(first_player_name)
-
-        print("Player one, say your name")
-
-        audio_data = r.record(source, duration=2)
-        print("Recognizing....")
-        second_player_name = r.recognize_google(audio_data)
-        print(second_player_name)
+    first_player_name = get_name("one")
+    second_player_name = get_name("two")
 
     first_player_sign = input(f"{first_player_name} would you like to play with 'X' or 'O'? ").upper()
     while first_player_sign not in ['X', 'O']:
@@ -166,6 +171,9 @@ while True:
         board = [([None] * board_size) for _ in range(board_size)]
         print(f"{players[0][0]} starts first!")
         play_game(players, board, position_mapping)
-    else:
+    elif new_game_choice == 'n':
         print("See you again!")
         break
+    else:
+        print("please select a valid choice.")
+
