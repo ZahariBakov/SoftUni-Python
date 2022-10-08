@@ -1,3 +1,7 @@
+from pyfiglet import Figlet
+import speech_recognition as sr
+
+
 class NonValidNumber(Exception):
     pass
 
@@ -8,8 +12,25 @@ def verify_number(num, positions):
 
 
 def creating_players():
-    first_player_name = input("Player one name: ")
-    second_player_name = input("Player two name: ")
+    figlet = Figlet(font='big')
+    print(figlet.renderText("Tic-Tac-Toe"))
+
+    with sr.Microphone() as source:
+        r = sr.Recognizer()
+
+        print("Player one, say your name")
+
+        audio_data = r.record(source, duration=2)
+        print("Recognizing....")
+        first_player_name = r.recognize_google(audio_data)
+        print(first_player_name)
+
+        print("Player one, say your name")
+
+        audio_data = r.record(source, duration=2)
+        print("Recognizing....")
+        second_player_name = r.recognize_google(audio_data)
+        print(second_player_name)
 
     first_player_sign = input(f"{first_player_name} would you like to play with 'X' or 'O'? ").upper()
     while first_player_sign not in ['X', 'O']:
@@ -148,4 +169,3 @@ while True:
     else:
         print("See you again!")
         break
-
