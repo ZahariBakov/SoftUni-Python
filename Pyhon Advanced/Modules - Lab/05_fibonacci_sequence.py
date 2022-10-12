@@ -14,3 +14,4 @@ while command != "Stop":
         locate_num(number, sequence)
 
     command = input()
+
