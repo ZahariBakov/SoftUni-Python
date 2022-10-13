@@ -3,7 +3,8 @@ import tkinter
 
 def create_app():
     root = tkinter.Tk()
-    root.geometry("700x600+0+0")
+
+    root.geometry("700x600")
     root.title("GUI Product shop")
 
     return root

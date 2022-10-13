@@ -1,6 +1,6 @@
-from canvas import tk
+from canvas import root
 
 
 def clean_screen():
-    for el in tk.grid_slaves():
+    for el in root.grid_slaves():
         el.destroy()
