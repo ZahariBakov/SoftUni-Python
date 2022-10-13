@@ -23,6 +23,9 @@ def render_entry():
         command=login
     )
 
+    frame.create_window(350, 200, window=register_btn)
+    frame.create_window(350, 260, window=loging_btn)
+
 
 def register():
     pass

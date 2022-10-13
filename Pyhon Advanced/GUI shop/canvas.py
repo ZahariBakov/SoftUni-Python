@@ -10,4 +10,12 @@ def create_app():
     return root
 
 
+def create_frame():
+    frame = tkinter.Canvas(root, width=700, height=700)
+    frame.grid(row=0, column=0)
+
+    return frame
+
+
 root = create_app()
+frame = create_frame()
