@@ -8,9 +8,6 @@ while eggs_sequence and paper_sequence:
     current_egg = eggs_sequence.popleft()
 
     if current_egg == 13:
-        # last_paper = paper_sequence.pop()
-        # paper_sequence.append(paper_sequence.popleft())
-        # paper_sequence.insert(0, last_paper)
         paper_sequence[0], paper_sequence[-1] = paper_sequence[-1], paper_sequence[0]
 
     elif current_egg <= 0:
@@ -26,6 +23,7 @@ if boxes == 0:
     print("Sorry! You couldn't fill any boxes!")
 else:
     print(f"Great! You filled {boxes} boxes.")
+
 if eggs_sequence:
     print(f"Eggs left: {', '.join(str(x) for x in eggs_sequence)}")
 if paper_sequence:
