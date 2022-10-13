@@ -1,16 +1,17 @@
 from collections import deque
 
 eggs_sequence = deque(int(x) for x in input().split(", "))
-paper_sequence = deque(int(x) for x in input().split(", "))
+paper_sequence = [int(x) for x in input().split(", ")]
 boxes = 0
 
 while eggs_sequence and paper_sequence:
     current_egg = eggs_sequence.popleft()
 
     if current_egg == 13:
-        last_paper = paper_sequence.pop()
-        paper_sequence.append(paper_sequence.popleft())
-        paper_sequence.insert(0, last_paper)
+        # last_paper = paper_sequence.pop()
+        # paper_sequence.append(paper_sequence.popleft())
+        # paper_sequence.insert(0, last_paper)
+        paper_sequence[0], paper_sequence[-1] = paper_sequence[-1], paper_sequence[0]
 
     elif current_egg <= 0:
         continue
