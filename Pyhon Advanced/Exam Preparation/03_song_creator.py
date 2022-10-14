@@ -1,10 +1,12 @@
 def add_songs(*args):
     songs = {}
     for el in args:
-        if el[0] not in songs:
-            songs[el[0]] = []
-        for song in el[1]:
-            songs[el[0]].append(song)
+        song, lyrics = el
+
+        if song not in songs:
+            songs[song] = []
+
+        songs[song].extend(lyrics)
 
     result = ''
 
