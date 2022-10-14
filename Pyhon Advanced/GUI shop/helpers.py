@@ -1,6 +1,5 @@
-from canvas import root
+from canvas import frame
 
 
 def clean_screen():
-    for el in root.grid_slaves():
-        el.destroy()
+    frame.delete("all")

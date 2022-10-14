@@ -6,6 +6,7 @@ def create_app():
 
     root.geometry("700x600")
     root.title("GUI Product shop")
+    root.resizable(False, False)
 
     return root
 
