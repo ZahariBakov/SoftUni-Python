@@ -1,58 +1,55 @@
-def checking_index(n, num):
-    if num < 0:
-        num = size - 1
-    elif num == size:
-        num = 0
+def calculate_position(n, idx):
+    if idx < 0:
+        idx = size - 1
+    elif idx == size:
+        idx = 0
 
-    return num
+    return idx
 
 
 size = int(input())
 
 field = []
-starting_position = []
+player_position = []
 path = []
 coins = 0
 
 for row in range(size):
     col = input().split()
     if "P" in col:
-        starting_position.append(row)
-        starting_position.append(col.index('P'))
+        player_position = [row, col.index('P')]
     field.append(col)
 
-path.append(starting_position)
-row = starting_position[0]
-col = starting_position[1]
-field[row][col] = 0
+path.append(player_position)
 
 while True:
+    row, col = player_position
+    field[row][col] = "0"
     command = input()
     if command == "up":
         row -= 1
-        row = checking_index(size, row)
+        row = calculate_position(size, row)
     elif command == "down":
         row += 1
-        row = checking_index(size, row)
+        row = calculate_position(size, row)
     elif command == "left":
         col -= 1
-        col = checking_index(size, col)
+        col = calculate_position(size, col)
     elif command == "right":
         col += 1
-        col = checking_index(size, col)
+        col = calculate_position(size, col)
 
-    current_position = [row, col]
-    path.append(current_position)
+    player_position = [row, col]
+    path.append(player_position)
 
     if field[row][col] == "X":
         if coins > 0:
-            coins = int(coins / 2)
+            coins = coins // 2
         print(f"Game over! You've collected {coins} coins.")
         break
 
     else:
         coins += int(field[row][col])
-        field[row][col] = 0
         if coins >= 100:
             print(f"You won! You've collected {coins} coins.")
             break
