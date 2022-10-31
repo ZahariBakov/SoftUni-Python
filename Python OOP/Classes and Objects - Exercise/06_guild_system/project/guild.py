@@ -19,7 +19,7 @@ class Guild:
             if player_name == player.name:
                 player.guild = "Unaffiliated"
                 self.players.remove(player)
-                return f"Player {player_name} has been removed from the guild"
+                return f"Player {player_name} has been removed from the guild."
 
         return f"Player {player_name} is not in the guild."
 
