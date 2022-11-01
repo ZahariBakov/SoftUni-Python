@@ -1,5 +1,6 @@
 from project.elf import Elf
 from project.hero import Hero
+from project.soul_master import SoulMaster
 
 hero = Hero("H", 4)
 print(hero.username)
@@ -10,3 +11,6 @@ print(str(elf))
 print(elf.__class__.__bases__[0].__name__)
 print(elf.username)
 print(elf.level)
+soul_master = SoulMaster("Z", 8)
+print(soul_master.__class__)
+print(soul_master.__class__.__bases__)
