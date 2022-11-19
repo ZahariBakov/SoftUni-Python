@@ -28,9 +28,18 @@ class Triangle(Shape):
 
 class AreaCalculator:
     def __init__(self, shapes):
-
-        assert isinstance(shapes, list), "`shapes` should be of type `list`."
         self.shapes = shapes
+
+    @property
+    def shapes(self):
+        return self.__shapes
+
+    @shapes.setter
+    def shapes(self, value):
+        if not isinstance(value, list):
+            raise AssertionError("`shapes` should be of type `list`.")
+
+        self.__shapes = value
 
     @property
     def total_area(self):
