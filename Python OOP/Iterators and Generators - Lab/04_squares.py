@@ -15,7 +15,7 @@ class squares:
         return self
 
     def __next__(self):
-        if self.start > self.end:
+        if self.start >= self.end:
             raise StopIteration
 
         self.start += 1
