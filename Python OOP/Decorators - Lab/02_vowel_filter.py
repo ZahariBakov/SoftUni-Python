@@ -1,9 +1,14 @@
+from functools import wraps
+
+
 def vowel_filter(function):
+
+    @wraps(function)
     def wrapper():
         result = function()
         vowels = "aoueiy"
 
-        return [x for x in result if x in vowels]
+        return [x for x in result if x.lower() in vowels]
 
     return wrapper
 
