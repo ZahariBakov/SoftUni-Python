@@ -80,6 +80,21 @@ class TestBookstore(TestCase):
             "C++ Bible": 3
         }, self.store.availability_in_store_by_book_titles)
 
+    def test_sell_all_available_book_from_one_kind(self):
+        self.store.availability_in_store_by_book_titles = self.books
+
+        result = self.store.sell_book("C++ Bible", 3)
+        expected = "Sold 3 copies of C++ Bible"
+
+        self.assertEqual(expected, result)
+
+        self.assertEqual(3, self.store.total_sold_books)
+
+        self.assertEqual({
+            "Java for dummies": 8,
+            "C++ Bible": 0
+        }, self.store.availability_in_store_by_book_titles)
+
     def test_correct__str__methods(self):
         self.store.availability_in_store_by_book_titles = self.books
 
