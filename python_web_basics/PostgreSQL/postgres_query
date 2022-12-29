@@ -1,0 +1,53 @@
+-- CREATE TABLE IF NOT EXISTS public.categories
+-- (
+--     id integer NOT NULL DEFAULT nextval('categories_id_seq'::regclass),
+--     name character varying(20) COLLATE pg_catalog."default" NOT NULL,
+--     CONSTRAINT categories_pkey PRIMARY KEY (id)
+-- )
+
+-- TABLESPACE pg_default;
+
+-- ALTER TABLE IF EXISTS public.categories
+--     OWNER to "postgres-Hari";
+
+-- ALTER TABLE employees
+-- ADD COLUMN salary DECIMAL
+
+-- ALTER TABLE employees
+-- ADD COLUMN bonus DECIMAL
+
+-- ALTER TABLE employees
+-- DROP COLUMN bonus
+
+-- SELECT *
+-- FROM employees
+
+-- INSERT INTO categories(name)
+-- VALUES ('beer'),
+-- 		('water'),
+-- 		('snacks')
+
+-- SELECT *
+-- FROM categories
+
+-- INSERT INTO products (name, category_id)
+-- VALUES ('Lager beer', 1),
+-- 	  ('International Lager Beer', 1),
+-- 	  ('Pale Ale beer', 1),
+-- 	  ('Mineral water', 2),
+-- 	  ('Spring water', 2),
+-- 	  ('Sparkling water', 2),
+-- 	  ('Potato chips', 3),
+-- 	  ('Pretzel', 3),
+-- 	  ('Popcorn chips', 3)
+
+SELECT *
+FROM products
+JOIN categories
+	ON products.category_id = categories.id
+-- WHERE categories.name = 'beer'
+WHERE categories.name IN ('beer', 'snacks')
+ORDER BY categories.name, products.name DESC
+
+
+
