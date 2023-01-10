@@ -1,15 +1,15 @@
 from django.urls import path
-from departments_app.departments.views import sample_view
+from departments_app.departments.views import show_departments
 
 urlpatterns = [
     # /departments/
-    path('', sample_view),
+    path('', show_departments),
 
     # /departments/{id}/
-    path('<departemnt_id>/', sample_view),
+    path('<departemnt_id>/', show_departments),
 
     # /departments/int/{id}/
-    path('int/<int:department_id>/', sample_view),
+    path('int/<int:department_id>/', show_departments),
 ]
 
 # paths = (

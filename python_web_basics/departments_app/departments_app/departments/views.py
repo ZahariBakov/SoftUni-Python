@@ -1,7 +1,10 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 
 
 # Create your views here.
-def sample_view(request, *args, **kwargs):
-    print(f'args = {args}')
-    print(f'kwargs = {kwargs}')
+def show_departments(request, *args, **kwargs):
+    body = f'path=: {request.path}, args={args}, kwargs={kwargs}'
+
+    return HttpResponse(body)
+
