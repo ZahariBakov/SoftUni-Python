@@ -1,0 +1,76 @@
+-- INSERT INTO people(email, first_name, last_name)
+-- 	VALUES ('example@example.com', 'Georgi', 'Ivanov'),
+-- 		   ('something@example.com', 'Petur', 'Kirilov');
+
+-- INSERT INTO people(email, first_name, last_name)
+-- 	VALUES ('example@example.com', 'Georgi', 'Ivanov'),
+-- 		   ('something@example.com', 'Petur', 'Kirilov');
+
+-- SELECT * FROM public.people WHERE first_name='Georgi';
+
+-- SELECT * FROM public.people WHERE first_name='Petur';
+
+-- SELECT * FROM public.people WHERE first_name='Ivan';
+
+-- SELECT * FROM public.people WHERE first_name='Ivan' OR first_name='Georgi';
+
+-- UPDATE people SET last_name = 'Petrov' WHERE id = 3;
+
+-- UPDATE people SET last_name = 'Ivanov'
+-- 	WHERE first_name = 'Petur'
+-- 		AND last_name = 'Kirilov';
+
+-- ALTER TABLE people
+-- ADD COLUMN salary DECIMAL;
+
+-- ALTER TABLE people
+-- DROP COLUMN email;
+
+-- DELETE FROM people
+-- WHERE id = 3
+-- OR id = 4;
+
+-- SELECT * FROM people;
+
+-- INSERT INTO people(first_name, last_name)
+-- 	VALUES ('Doncho', 'Minkov'),
+-- 		   ('Zahari', 'Bakov'),
+-- 		   ('Lora', 'Krumova'),
+-- 		   ('Viktor', 'Papazov'),
+-- 		   ('Sirma', 'Noeva'),
+-- 		   ('Ivalio', 'Kacarov'),
+-- 		   ('Elena', 'Ivanova');
+
+-- SELECT * FROM people;
+
+-- UPDATE people SET salary = 1500 WHERE id = 1;
+
+-- UPDATE people
+-- SET salary = 1500
+-- WHERE id = 5 OR id = 7 OR id=11;
+
+-- UPDATE people
+-- SET salary = 2000
+-- WHERE id = 2 OR id = 8 OR id=10;
+
+-- UPDATE people
+-- SET salary = 1700
+-- WHERE id = 6 OR id = 9;
+
+
+---------------------------------------------
+
+-- CREATE TABLE public.manager
+-- (
+--     manager_id serial,
+--     manage_who bigint,
+--     CONSTRAINT pk PRIMARY KEY (manager_id),
+--     CONSTRAINT people_fk_id FOREIGN KEY (manage_who)
+--         REFERENCES public.people (id) MATCH SIMPLE
+--         ON UPDATE NO ACTION
+--         ON DELETE SET NULL
+--         NOT VALID
+-- );
+
+-- ALTER TABLE IF EXISTS public.manager
+--    OWNER to "postgres-Hari";
