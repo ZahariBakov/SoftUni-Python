@@ -57,6 +57,8 @@
 -- SET salary = 1700
 -- WHERE id = 6 OR id = 9;
 
+-- SELECT * FROM people;
+
 
 ---------------------------------------------
 
