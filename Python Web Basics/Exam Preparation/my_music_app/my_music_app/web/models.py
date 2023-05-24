@@ -1,11 +1,9 @@
-from django.core import exceptions
+from enum import Enum
+
 from django.core.validators import MinLengthValidator, MinValueValidator
 from django.db import models
 
-
-def validate_only_alphanumeric(value):
-    if not value.isalnum() and '_' not in value:
-        raise exceptions.ValidationError("Ensure this value contains only letters, numbers, and underscore.")
+from my_music_app.web.validators import validate_only_alphanumeric
 
 
 class Profile(models.Model):
@@ -28,28 +26,27 @@ class Profile(models.Model):
     )
 
 
+# With enums:
+
+class ChoicesEnum(Enum):
+    @classmethod
+    def choices(cls):
+        return [(x.name, x.value) for x in cls]
+
+
+class AlbumGenres(ChoicesEnum):
+    POP = 'Pop Music'
+    JAZZ = "Jazz Music"
+    RNB = "R&B Music"
+    ROCK = "Rock Music"
+    COUNTRY = "Country Music"
+    DANCE = "Dance Music"
+    HIP_HOP = "Hip Hop Music"
+    OTHER = "Other"
+
+
 class Album(models.Model):
     ALBUM_MAX_LEN = 30
-
-    POP_MUSIC = 'Pop Music'
-    JAZZ_MUSIC = "Jazz Music"
-    RNB_MUSIC = "R&B Music"
-    ROCK_MUSIC = "Rock Music"
-    COUNTRY_MUSIC = "Country Music"
-    DANCE_MUSIC = "Dance Music"
-    HIP_HOP_MUSIC = "Hip Hop Music"
-    OTHER_MUSIC = "Other"
-
-    MUSICS = (
-        (POP_MUSIC, POP_MUSIC),
-        (JAZZ_MUSIC, JAZZ_MUSIC),
-        (RNB_MUSIC, RNB_MUSIC),
-        (ROCK_MUSIC, ROCK_MUSIC),
-        (COUNTRY_MUSIC, COUNTRY_MUSIC),
-        (DANCE_MUSIC, DANCE_MUSIC),
-        (HIP_HOP_MUSIC, HIP_HOP_MUSIC),
-        (OTHER_MUSIC, OTHER_MUSIC),
-    )
 
     album_name = models.CharField(
         max_length=ALBUM_MAX_LEN,
@@ -63,7 +60,7 @@ class Album(models.Model):
 
     genre = models.CharField(
         max_length=ALBUM_MAX_LEN,
-        choices=MUSICS,
+        choices=AlbumGenres.choices(),
     )
 
     description = models.TextField(
@@ -80,3 +77,59 @@ class Album(models.Model):
             MinValueValidator(0.0),
         )
     )
+
+
+# Without enums:
+#
+# class Album(models.Model):
+#     ALBUM_MAX_LEN = 30
+#
+#     POP_MUSIC = 'Pop Music'
+#     JAZZ_MUSIC = "Jazz Music"
+#     RNB_MUSIC = "R&B Music"
+#     ROCK_MUSIC = "Rock Music"
+#     COUNTRY_MUSIC = "Country Music"
+#     DANCE_MUSIC = "Dance Music"
+#     HIP_HOP_MUSIC = "Hip Hop Music"
+#     OTHER_MUSIC = "Other"
+#
+#     MUSICS = (
+#         (POP_MUSIC, POP_MUSIC),
+#         (JAZZ_MUSIC, JAZZ_MUSIC),
+#         (RNB_MUSIC, RNB_MUSIC),
+#         (ROCK_MUSIC, ROCK_MUSIC),
+#         (COUNTRY_MUSIC, COUNTRY_MUSIC),
+#         (DANCE_MUSIC, DANCE_MUSIC),
+#         (HIP_HOP_MUSIC, HIP_HOP_MUSIC),
+#         (OTHER_MUSIC, OTHER_MUSIC),
+#     )
+#
+#     album_name = models.CharField(
+#         max_length=ALBUM_MAX_LEN,
+#         unique=True,
+#         verbose_name='Album Name',
+#     )
+#
+#     artist = models.CharField(
+#         max_length=ALBUM_MAX_LEN,
+#     )
+#
+#     genre = models.CharField(
+#         max_length=ALBUM_MAX_LEN,
+#         choices=MUSICS,
+#     )
+#
+#     description = models.TextField(
+#         null=True,
+#         blank=True,
+#     )
+#
+#     image = models.URLField(
+#         verbose_name='Image URL',
+#     )
+#
+#     price = models.FloatField(
+#         validators=(
+#             MinValueValidator(0.0),
+#         )
+#     )
