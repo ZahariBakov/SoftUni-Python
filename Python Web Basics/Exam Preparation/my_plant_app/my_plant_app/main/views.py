@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from my_plant_app.main.forms import ProfileCreateForm, PlantCreateForm
+from my_plant_app.main.forms import ProfileCreateForm, PlantCreateForm, PlantEditForm, PlantDeleteForm
 from my_plant_app.main.models import Profile, Plant
 
 
@@ -14,8 +14,12 @@ def get_profile():
 def index(request):
     profile = get_profile()
 
+    if profile is None:
+        return render(request, 'core/home-page.html')
+
     context = {
-        'profile': profile,
+        'plant': Plant.objects.all(),
+        'hide_nav': True,
     }
 
     return render(request, 'core/home-page.html', context)
@@ -61,8 +65,6 @@ def profile_delete(request):
 
 
 def plant_create(request):
-    profile = get_profile()
-
     if request.method == 'GET':
         form = PlantCreateForm()
     else:
@@ -72,19 +74,17 @@ def plant_create(request):
             return redirect('catalogue')
 
     context = {
-        'profile': profile,
         'form': form,
+        'hide_nav': True,
     }
 
     return render(request, 'plant/create-plant.html', context)
 
 
 def plant_details(request, pk):
-    profile = get_profile()
     plant = Plant.objects.filter(pk=pk).get()
 
     context = {
-        'profile': profile,
         'plant': plant,
     }
 
@@ -92,8 +92,38 @@ def plant_details(request, pk):
 
 
 def plant_edit(request, pk):
-    return render(request, 'plant/edit-plant.html')
+    plant = Plant.objects.filter(pk=pk).get()
+
+    if request.method == 'GET':
+        form = PlantEditForm(instance=plant)
+    else:
+        form = PlantEditForm(request.POST, instance=plant)
+        if form.is_valid():
+            form.save()
+            return redirect('catalogue')
+
+    context = {
+        'form': form,
+        'plant': plant,
+    }
+
+    return render(request, 'plant/edit-plant.html', context)
 
 
 def plant_delete(request, pk):
-    return render(request, 'plant/delete-plant.html')
+    plant = Plant.objects.filter(pk=pk).get()
+
+    if request.method == 'GET':
+        form = PlantDeleteForm(instance=plant)
+    else:
+        form = PlantDeleteForm(request.POST, instance=plant)
+        if form.is_valid():
+            form.save()
+            return redirect('catalogue')
+
+    context = {
+        'form': form,
+        'plant': plant,
+    }
+
+    return render(request, 'plant/delete-plant.html', context)
