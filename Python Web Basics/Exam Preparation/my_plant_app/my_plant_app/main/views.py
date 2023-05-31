@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
-from my_plant_app.main.forms import ProfileCreateForm
-from my_plant_app.main.models import Profile
+from my_plant_app.main.forms import ProfileCreateForm, PlantCreateForm
+from my_plant_app.main.models import Profile, Plant
 
 
 def get_profile():
@@ -12,7 +12,7 @@ def get_profile():
 
 
 def index(request):
-    profile = get_profile
+    profile = get_profile()
 
     context = {
         'profile': profile,
@@ -22,7 +22,14 @@ def index(request):
 
 
 def catalogue(request):
-    return render(request, 'core/catalogue.html')
+    profile = get_profile()
+    plants = Plant.objects.all()
+
+    context = {
+        'profile': profile,
+        'plants': plants,
+    }
+    return render(request, 'core/catalogue.html', context)
 
 
 def profile_create(request):
@@ -54,16 +61,39 @@ def profile_delete(request):
 
 
 def plant_create(request):
-    return render(request, 'plant/create-plant.html')
+    profile = get_profile()
+
+    if request.method == 'GET':
+        form = PlantCreateForm()
+    else:
+        form = PlantCreateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('catalogue')
+
+    context = {
+        'profile': profile,
+        'form': form,
+    }
+
+    return render(request, 'plant/create-plant.html', context)
 
 
-def plant_details(request):
-    return render(request, 'plant/plant-details.html')
+def plant_details(request, pk):
+    profile = get_profile()
+    plant = Plant.objects.filter(pk=pk).get()
+
+    context = {
+        'profile': profile,
+        'plant': plant,
+    }
+
+    return render(request, 'plant/plant-details.html', context)
 
 
-def plant_edit(request):
+def plant_edit(request, pk):
     return render(request, 'plant/edit-plant.html')
 
 
-def plant_delete(request):
+def plant_delete(request, pk):
     return render(request, 'plant/delete-plant.html')

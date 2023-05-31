@@ -14,7 +14,7 @@ urlpatterns = (
     path('profile/delete/', profile_delete, name='profile delete'),
 
     path('create/', plant_create, name='plant create'),
-    path('details/<plant_id>/', plant_details, name='plant details'),
-    path('edit/<plant_id>/', plant_edit, name='plant edit'),
-    path('delete/<plant_id>/', plant_delete, name='plant delete'),
+    path('details/<int:pk>/', plant_details, name='plant details'),
+    path('edit/<int:pk>/', plant_edit, name='plant edit'),
+    path('delete/<int:pk>/', plant_delete, name='plant delete'),
 )
