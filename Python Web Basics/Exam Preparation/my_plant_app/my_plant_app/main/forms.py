@@ -9,6 +9,29 @@ class ProfileCreateForm(forms.ModelForm):
         fields = ('username', 'first_name', 'last_name')
 
 
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = '__all__'
+
+
+class ProfileDeleteForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__set_disabled_fields()
+
+    def save(self, commit=True):
+        if commit:
+            Plant.objects.all().delete()
+            self.instance.delete()
+
+        return self.instance
+
+    def __set_disabled_fields(self):
+        for _, field in self.fields.items():
+            field.widget.attrs['readonly'] = 'readonly'
+
+
 class PlantBaseForm(forms.ModelForm):
     class Meta:
         model = Plant

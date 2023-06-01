@@ -31,6 +31,9 @@ class Profile(models.Model):
         blank=True,
     )
 
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
 
 class Plant(models.Model):
     TYPES = (
