@@ -92,7 +92,6 @@ def profile_delete(request):
 
     context = {
         'form': form,
-        'profile': profile,
     }
 
     return render(request, 'profile/delete-profile.html', context)

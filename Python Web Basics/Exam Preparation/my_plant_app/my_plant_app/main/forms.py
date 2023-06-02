@@ -16,9 +16,13 @@ class ProfileEditForm(forms.ModelForm):
 
 
 class ProfileDeleteForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = '__all__'
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.__set_disabled_fields()
+        self.__set_hidden_fields()
 
     def save(self, commit=True):
         if commit:
@@ -27,9 +31,9 @@ class ProfileDeleteForm(forms.ModelForm):
 
         return self.instance
 
-    def __set_disabled_fields(self):
+    def __set_hidden_fields(self):
         for _, field in self.fields.items():
-            field.widget.attrs['readonly'] = 'readonly'
+            field.widget = forms.HiddenInput()
 
 
 class PlantBaseForm(forms.ModelForm):
