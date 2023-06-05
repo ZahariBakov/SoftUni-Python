@@ -8,7 +8,7 @@ urlpatterns = [
 
     path('dashboard/', dashboard, name='dashboard'),
 
-    path('profile/create', create_profile, name='create profile'),
+    path('profile/create/', create_profile, name='create profile'),
     path('profile/details/', details_profile, name='details profile'),
     path('profile/edit/', edit_profile, name='edit profile'),
     path('profile/delete/', delete_profile, name='delete profile'),

@@ -68,7 +68,9 @@ class Game(models.Model):
     )
 
     max_level = models.IntegerField(
-        MinValueValidator(1),
+        validators=(
+            MinValueValidator(1),
+        ),
         blank=True,
         null=True,
     )
