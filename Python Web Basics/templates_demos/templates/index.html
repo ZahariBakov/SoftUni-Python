@@ -1,0 +1,111 @@
+{% load filters %} {# The name of the files #}
+{% load tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    HTML Nav:
+    <nav>
+        <a href="{% url 'index' %}">Go to home</a>
+
+        <a href="{% url 'redirect to home' %}">Redirect to home</a>
+    </nav>
+
+    Tag Nav:
+    {% app_nav 'index' 'redirect to home' %}
+    {% app_nav 'index' 'redirect to home' 'redirect to home' 'redirect to home' 'redirect to home' %}
+
+    <div>
+        Original: {{ values }}
+    </div>
+
+    <div>
+        Odd: {{ values|odd }} {# `odd` is the name of the filter #}
+    </div>
+
+    <div>
+        {% student_info student %}
+    </div>
+
+    <div>{% sample_tag %}</div>
+    <div>{% sample_tag 17 'Doncho' True %}</div>
+    <div>{% sample_tag department='Engineering' company='Softuni' %}</div>
+
+    {{ csrf_token }}
+    {% csrf_token %}
+
+    <h1>
+        Original: {{ title }}: {{ value }}
+    </h1>
+
+    <h1>
+        Upped: {{ title|upper }}: {{ value }}
+    </h1>
+
+    <h1>
+        Capped first: {{ title|capfirst }}: {{ value }}
+    </h1>
+
+    <h1>
+        lowered then capped first: {{ title|lower|capfirst }}: {{ value }}
+    </h1>
+
+    <h1>
+        Truncated 10: {{ title|truncatechars:10 }}: {{ value }}
+    </h1>
+
+    <h2>{{ now }}</h2>
+    <h2>{{ now|date:'y/M/d' }}</h2>
+    <h2>{{ now|date:'d D M Y' }}</h2>
+    <h2>{{ now|app_style }}</h2>
+
+    {{ 2|add:3|add:4 }}
+    {{ info.address }}
+    {{ student.get_info }}
+    {{ student_info }}
+
+    <div>
+        {% if students %}
+            {{ students|join:', ' }}
+        {% else %}
+            No students
+        {% endif %}
+    </div>
+
+    <h3>Pure `for`</h3>
+
+        <ul>
+            {% for student in students %}
+                <li>{{ student }}</li>
+            {% empty %}
+                <li>No students</li>
+            {% endfor %}
+
+        </ul>
+
+    <h3>`for` with `ifchanged`</h3>
+
+        <ul>
+            {% for student in students %}
+                {% ifchanged %}
+                    <li>{{ student }}</li>
+                {% endifchanged %}
+            {% endfor %}
+
+        </ul>
+
+{# to commend use CTRL+/#}
+
+{% comment %}
+This is
+a multiline
+commenr
+{% endcomment %}
+
+</body>
+</html>
