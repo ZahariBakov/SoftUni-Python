@@ -64,11 +64,11 @@
 
     <h3>Pure `for`</h3>
 
-        <ul>
+        <ul class="list-group">
             {% for student in students %}
-                <li>{{ student }}</li>
+                <li class="list-group-item">{{ student }}</li>
             {% empty %}
-                <li>No students</li>
+                <li class="list-group-item">No students</li>
             {% endfor %}
 
         </ul>
