@@ -1,25 +1,10 @@
+{% extends 'base/base.html' %}
 {% load filters %} {# The name of the files #}
 {% load tags %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% block page_title %}{{ title }}{% endblock %}
 
-    HTML Nav:
-    <nav>
-        <a href="{% url 'index' %}">Go to home</a>
-
-        <a href="{% url 'redirect to home' %}">Redirect to home</a>
-    </nav>
-
-    Tag Nav:
-    {% app_nav 'index' 'redirect to home' %}
-    {% app_nav 'index' 'redirect to home' 'redirect to home' 'redirect to home' 'redirect to home' %}
-
+{% block page_content %}
     <div>
         Original: {{ values }}
     </div>
@@ -106,6 +91,4 @@ This is
 a multiline
 commenr
 {% endcomment %}
-
-</body>
-</html>
+{% endblock %}

@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad5d1dd5-2190-47ac-aa21-7d610aebfebb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/templates_demos.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/tags/nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tags/nav.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates_demos/web/templatetags/tags.py" beforeDir="false" afterPath="$PROJECT_DIR$/templates_demos/web/templatetags/tags.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates_demos/web/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/templates_demos/web/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates_demos/web/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/templates_demos/web/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,11 +89,24 @@
       <option name="presentableId" value="Default" />
       <updated>1686234892431</updated>
       <workItem from="1686234931867" duration="512000" />
-      <workItem from="1686235475220" duration="7459000" />
+      <workItem from="1686235475220" duration="7654000" />
+      <workItem from="1686290858681" duration="2314000" />
     </task>
+    <task id="LOCAL-00001" summary="Create Django project &quot;template_demos&quot;.">
+      <created>1686243097914</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1686243097914</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Create Django project &quot;template_demos&quot;." />
+    <option name="LAST_COMMIT_MESSAGE" value="Create Django project &quot;template_demos&quot;." />
   </component>
 </project>

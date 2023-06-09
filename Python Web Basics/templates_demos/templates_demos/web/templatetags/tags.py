@@ -16,7 +16,7 @@ def sample_tag(*args, **kwargs):
 
 
 @register.inclusion_tag('tags/nav.html', name='app_nav', takes_context=True)
-def generate_nav(*args):
+def generate_nav(context, *args):
     context = {
         'url_names': args,
     }
