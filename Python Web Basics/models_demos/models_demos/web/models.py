@@ -19,6 +19,17 @@ class Employee(models.Model):
         max_length=30,
     )
 
+    last_name = models.CharField(
+        max_length=50,
+        null=True,
+    )
+
+    level = models.CharField(
+        max_length=15,
+    )
+
+    age  = models.IntegerField()
+
     # Int => 0
     years_of_experience = models.PositiveIntegerField()
 
