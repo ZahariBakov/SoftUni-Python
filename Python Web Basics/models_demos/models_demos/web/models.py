@@ -25,6 +25,20 @@ class Department(models.Model):
         max_length=15,
     )
 
+    def __str__(self):
+        return f'Id: {self.pk}; Name: {self.name}'
+
+
+class Project(models.Model):
+    name = models.CharField(
+        max_length=30,
+    )
+    code_name = models.CharField(
+        max_length=10,
+        unique=True,
+    )
+    deadline = models.DateField()
+
 
 class Employee(models.Model):
     LEVEL_JUNIOR = 'Junior'
@@ -85,9 +99,16 @@ class Employee(models.Model):
         auto_now=True,
     )
 
+    # One-to-many
     department = models.ForeignKey(
         Department,
-        on_delete=models.CASCADE,
+        on_delete=models.RESTRICT,
+    )
+
+    # Many-to-many
+    projects = models.ManyToManyField(
+        Project,
+        related_name='employees',
     )
 
     @property
@@ -98,15 +119,52 @@ class Employee(models.Model):
         return f'Id: {self.pk}; Name: {self.fullname}'
 
 
+class AccessCard(models.Model):
+    employee = models.OneToOneField(
+        Employee,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+
+
+class Category(models.Model):
+    name = models.CharField(
+        max_length=15,
+    )
+
+    parent_category = models.ForeignKey(
+        'Category',
+        on_delete=models.RESTRICT,
+        null=True,
+        blank=True,
+    )
+
 # Employee.objects.raw('SELECT *')  # raw SQL
 # Employee.objects.all()            # Select
 # Employee.objects.create()         # Insert
 # Employee.objects.filter()         # Select + Where
 # Employee.objects.update()         # Update
 
+
 '''
 Django ORM (Object-relation mapping)
 '''
+
+
+class EmployeesProjects(models.Model):
+    employee_id = models.ForeignKey(
+        Employee,
+        on_delete=models.RESTRICT
+    )
+    project_id = models.ForeignKey(
+        Project,
+        on_delete=models.RESTRICT
+    )
+
+    date_joined = models.DateField(
+        auto_now_add=True,
+    )
+    # Additional info
 
 
 class NullBlankDemo(models.Model):
@@ -119,7 +177,7 @@ class NullBlankDemo(models.Model):
     #     null=True,
     # )
     blank_null = models.IntegerField(
-        blank=True, # Form validation
+        blank=True,  # Form validation
         null=True,
     )
     default = models.IntegerField()
