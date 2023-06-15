@@ -82,7 +82,7 @@ class Employee(models.Model):
     email = models.EmailField(
         # Adds `UNIQUE` constraint
         unique=True,
-        editable=False,
+        # editable=False,
     )
 
     is_full_time = models.BooleanField(

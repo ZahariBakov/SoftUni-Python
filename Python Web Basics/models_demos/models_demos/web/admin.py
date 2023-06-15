@@ -14,26 +14,26 @@ class EmployeeAdmin(admin.ModelAdmin):
     def employee_department(self, obj):
         return obj.department.name
 
-    fieldsets = (
-        (
-            'Personal info',
-            {
-                'fields': ('first_name', 'last_name', 'age'),
-            }
-        ),
-        (
-            'Professional info',
-            {
-                'fields': ('level', 'years_of_experience'),
-            }
-        ),
-        (
-            'Company info',
-            {
-                'fields': ('department', 'is_full_time', 'start_date'),
-            }
-        ),
-    )
+    # fieldsets = (
+    #     (
+    #         'Personal info',
+    #         {
+    #             'fields': ('first_name', 'last_name', 'age'),
+    #         }
+    #     ),
+    #     (
+    #         'Professional info',
+    #         {
+    #             'fields': ('level', 'years_of_experience'),
+    #         }
+    #     ),
+    #     (
+    #         'Company info',
+    #         {
+    #             'fields': ('department', 'is_full_time', 'start_date'),
+    #         }
+    #     ),
+    # )
 
     # def has_delete_permission(self, request, obj=None):
     #     return False
