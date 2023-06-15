@@ -37,11 +37,11 @@
             {% for employee in employees2 %}
                 <li>
                     <div>
-                        {{ employee.first_name }} {{ employee.last_name }}
+                        {{ employee.fullname }}
                     </div>
 
                     <div>
-                        {{ employee.department.name }}
+                        <a href="{{ employee.department.get_absolute_url }}"> {{ employee.department.name }}</a> for {{ employee.year_of_employment }}
                     </div>
 
                     <div>

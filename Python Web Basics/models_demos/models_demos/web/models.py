@@ -1,6 +1,9 @@
-from enum import Enum
+from datetime import date
 
 from django.db import models
+from django.urls import reverse
+
+from models_demos.web.validators import validate_before_today
 
 # Model fields == class attributes in Model classes
 
@@ -42,12 +45,19 @@ class AuditIfoMixin(models.Model):
 
 
 class Department(AuditIfoMixin, models.Model):
-    name = models.CharField(
-        max_length=15,
-    )
+    name = models.CharField(max_length=15)
+    slug = models.SlugField(unique=True)
 
     def __str__(self):
         return f'Id: {self.pk}; Name: {self.name}'
+
+    def get_absolute_url(self):
+        url = reverse('details department', kwargs={
+            'pk': self.pk,
+            'slug': self.slug,
+        })
+
+        return url
 
 
 class Project(AuditIfoMixin, models.Model):
@@ -92,7 +102,7 @@ class Employee(AuditIfoMixin, models.Model):
     )
 
     age = models.IntegerField(
-        default=-7,
+        default=0,
     )
 
     # Int => 0
@@ -101,7 +111,9 @@ class Employee(AuditIfoMixin, models.Model):
     # text => stings with unlimited length
     review = models.TextField()
 
-    start_date = models.DateField()
+    start_date = models.DateField(
+        validators=(validate_before_today,)
+    )
 
     email = models.EmailField(
         # Adds `UNIQUE` constraint
@@ -128,6 +140,10 @@ class Employee(AuditIfoMixin, models.Model):
     @property
     def fullname(self):
         return f'{self.first_name} {self.last_name}'
+
+    @property
+    def year_of_employment(self):
+        return date.today() - self.start_date
 
     def __str__(self):
         return f'Id: {self.pk}; Name: {self.fullname}'

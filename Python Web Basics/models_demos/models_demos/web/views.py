@@ -9,7 +9,7 @@ def index(request):
     # `employees` is empty (unfulfilled) QuerySet
     # Less data from the DB is better
     # Wong way to get data from DB
-    employees = [e for e in Employee.objects.all() if e.department_id == 2]
+    employees = [e for e in Employee.objects.all() if e.department_id == 1]
 
     # employees2 = Employee.objects.filter(department_id=2)\
     employees2 = Employee.objects\
@@ -33,7 +33,7 @@ def index(request):
     #
     # Employee.objects.filter(level=Employee.LEVEL_SENIOR).first()
 
-    department = Department.objects.get(pk=5)
+    department = Department.objects.get(pk=1)
     print(department)
 
     context = {
@@ -43,6 +43,13 @@ def index(request):
     }
 
     return render(request, 'index.html', context)
+
+
+def department_details(request, pk, slug):
+    context = {
+        'department': get_object_or_404(Department, pk=pk, slug=slug),
+    }
+    return render(request, 'department-details.html', context)
 
 
 def delete_employee(request, pk):
