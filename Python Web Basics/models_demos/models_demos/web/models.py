@@ -20,7 +20,28 @@ SQL Server: money
 #     SENIOR = 'Senior'
 
 
-class Department(models.Model):
+class AuditIfoMixin(models.Model):
+    class Meta:
+        # 1. No table will be created in the DB
+        # 2. Can be inherited in other models
+        abstract = True
+
+    # This will be automatically set on creation
+    created_on = models.DateTimeField(
+        auto_now_add=True,
+    )
+
+    # This will be automatically set on each `save`/ `update`
+    updated_on = models.DateTimeField(
+        auto_now=True,
+    )
+
+
+# class DeletableMixin(models.Model):
+#     is_deleted = models.BooleanField(default=False)
+
+
+class Department(AuditIfoMixin, models.Model):
     name = models.CharField(
         max_length=15,
     )
@@ -29,7 +50,7 @@ class Department(models.Model):
         return f'Id: {self.pk}; Name: {self.name}'
 
 
-class Project(models.Model):
+class Project(AuditIfoMixin, models.Model):
     name = models.CharField(
         max_length=30,
     )
@@ -40,7 +61,10 @@ class Project(models.Model):
     deadline = models.DateField()
 
 
-class Employee(models.Model):
+class Employee(AuditIfoMixin, models.Model):
+    class Meta:
+        ordering = ('years_of_experience', 'age',)
+
     LEVEL_JUNIOR = 'Junior'
     LEVEL_REGULAR = 'Regular'
     LEVEL_SENIOR = 'Senior'
@@ -89,16 +113,6 @@ class Employee(models.Model):
         null=True,
     )
 
-    # This will be automatically set on creation
-    created_on = models.DateTimeField(
-        auto_now_add=True,
-    )
-
-    # This will be automatically set on each `save`/ `update`
-    updated_on = models.DateTimeField(
-        auto_now=True,
-    )
-
     # One-to-many
     department = models.ForeignKey(
         Department,
@@ -128,6 +142,9 @@ class AccessCard(models.Model):
 
 
 class Category(models.Model):
+    class Meta:
+        verbose_name_plural = 'Categories'
+
     name = models.CharField(
         max_length=15,
     )
