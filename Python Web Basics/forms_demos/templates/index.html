@@ -1,55 +1,36 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+{% extends 'base.html' %}
 
-    <style>
-        form .helptext {
-            display: none;
-        }
+{% block title %}
+    Forms
+{% endblock %}
 
-        form label:hover + .helptext {
-            display: block;
-        }
-
-        .form-control {
-            padding: 5px 15px;
-            color: white;
-            background: black;
-        }
-    </style>
-</head>
-<body>
-    <h1>
+{% block content %}
+    <h2>
         {% if name %}
             Hello, {{ name }}! Nice to see you!
         {% else %}
             Please, enter your name!
         {% endif %}
-    </h1>
+    </h2>
 
     {{ csrf_token }}
 
-    <h2>Default form</h2>
+    <h3>Default form</h3>
     {# <form action="{% url 'index' %}" method="get">#}
     <form method="post" action="{% url 'index' %}">
         {{ form }}
-{#        {{ form.as_div }}#}
-{#        {{ form.as_p }}#}
-{#          <table>#}
-{#              {{ form.as_table }}#}
-{#          </table>#}
-{#        <input type="range" />#}
+        {#        {{ form.as_div }}#}
+        {#        {{ form.as_p }}#}
+        {#          <table>#}
+        {#              {{ form.as_table }}#}
+        {#          </table>#}
+        {#        <input type="range" />#}
         {% csrf_token %}
         <button>Send name</button>
         {# <input type="submit" value="Send name">#}
     </form>
 
-    <h2>Customized form</h2>
+    <h3>Customized form</h3>
     <form method="post" action="{% url 'index' %}">
         {% for field in form %}
             <label for="{{ field.id_for_label }}">
@@ -58,6 +39,7 @@
             </label>
         {% endfor %}
         {% csrf_token %}
+        <button>Send name</button>
     </form>
-</body>
-</html>
+
+{% endblock %}
