@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from forms_demos.web.forms import PersonForm, PersonModelForm
-from forms_demos.web.models import Person
+from forms_demos.web.models import Person, Pet
 
 
 def index_form(request):
@@ -9,7 +9,7 @@ def index_form(request):
 
     if request.method == 'GET':
         form = PersonForm()
-    else: # request.method == 'post':
+    else:  # request.method == 'post':
         form = PersonForm(request.POST)
         if form.is_valid():
             '''
@@ -39,7 +39,7 @@ def index_model_form(request):
     else:
         form = PersonModelForm(request.POST, instance=instance)
         if form.is_valid():
-            form.save() # Same as below
+            form.save()  # Same as below
             # pets = form.cleaned_data.pop('pets')
             # person = Person.objects.create(
             #     **form.cleaned_data
@@ -53,3 +53,13 @@ def index_model_form(request):
     }
 
     return render(request, 'model_forms.html', context)
+
+
+def related_models_demo(request):
+    pet = Pet.objects.get(pk=1)
+    person = Person.objects.get(pk=1)
+    # person.pets  # Person has `pets` field
+    # pet.person_set  # Pet has no `person` field
+    print(list(person.pets.all()))
+    print(list(pet.persons.all()))
+    print(list(pet.person_set.all()))
