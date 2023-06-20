@@ -8,7 +8,10 @@ def validate_text(value):
     # else:
     #     raise ValidationException()
     if '_' in value:
-        raise ValidationError('`_` is invalid character for `text`')
+        raise ValidationError(
+            message='`_` is invalid character for `text`',
+            code='invalid',
+        )
 
 
 def validate_priority(value):
