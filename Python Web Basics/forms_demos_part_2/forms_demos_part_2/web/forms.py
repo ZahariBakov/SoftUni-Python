@@ -1,3 +1,5 @@
+import uuid
+
 from django import forms
 from django.core.exceptions import ValidationError
 
@@ -77,3 +79,21 @@ class TodoCreateForm(forms.ModelForm):
     #     validate_max_todos_per_person(assignee)
     #
     #     return assignee
+
+
+class PersonCreateForm(forms.ModelForm):
+    class Meta:
+        model = Person
+        fields = '__all__'
+
+    # Unique name for `profile_image`:
+    def clean_profile_image(self):
+        profile_image = self.cleaned_data['profile_image']
+        profile_image.name = str(uuid.uuid4())
+        return profile_image
+
+    # `profile_image` with same name as user:
+    # def clean(self):
+    #     super().clean() # After this, all values are in `cleaned_data`
+    #     profile_image = self.cleaned_data['profile_image']
+    #     profile_image.name = self.cleaned_data['name']
