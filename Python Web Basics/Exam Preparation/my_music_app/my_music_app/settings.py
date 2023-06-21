@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-u9b1$f2zzj#og4i!m)1410b2i)a_-kkm9svg84$a1#86m7d9aa'
+SECRET_KEY = 'django-insecure-%qfvgyqa2bs4-pfb9$6!3awwq)re46@d#ehlzz+h66ba2_88sr'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'my_music_app.web',
+    'my_music_app.main',
 ]
 
 MIDDLEWARE = [
@@ -61,13 +61,10 @@ TEMPLATES = [
 WSGI_APPLICATION = 'my_music_app.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "my_music_app_db",
+        "NAME": "my_music_db",
         "USER": "postgres-Hari",
         "PASSWORD": "752718",
         "HOST": "127.0.0.1",
@@ -111,7 +108,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-
 STATICFILES_DIRS = (
     BASE_DIR / 'staticfiles',
 )
