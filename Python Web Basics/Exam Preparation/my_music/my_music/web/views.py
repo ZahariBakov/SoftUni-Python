@@ -89,11 +89,9 @@ def delete_album(request, pk):
 
 
 def profile_details(request):
-    profile = get_user_profile()
     albums_count = Album.objects.all().count()
 
     context = {
-        'profile': profile,
         'albums_count': albums_count,
     }
 

@@ -93,5 +93,6 @@ class DeleteAlbumForm(BaseAlbumForm):
 
     def __set_disabled_fields(self):
         for field in self.fields.values():
-            field.widget.attrs['readonly'] = 'readonly'
+            field.widget.attrs['disabled'] = 'disabled'
+            field.required = False
 
