@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from my_music.web.forms import CreateProfileForm
+from my_music.web.forms import CreateProfileForm, AddAlbumForm, EditAlbumForm, DeleteAlbumForm
 from my_music.web.models import Album
 from my_music.web.templatetags.get_profile import get_user_profile
 
@@ -36,24 +36,77 @@ def index(request):
 
 
 def add_album(request):
-    pass
+    form = AddAlbumForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('index')
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'album/add-album.html', context)
 
 
-def album_details(request):
-    pass
+def album_details(request, pk):
+    album = Album.objects.filter(pk=pk).get()
+
+    context = {
+        'album': album,
+    }
+
+    return render(request, 'album/album-details.html', context)
 
 
-def edit_album(request):
-    pass
+def edit_album(request, pk):
+    album = Album.objects.filter(pk=pk).get()
+    form = EditAlbumForm(request.POST or None, instance=album)
+    if form.is_valid():
+        form.save()
+        return redirect('index')
+
+    context = {
+        'form': form,
+        'album': album,
+    }
+
+    return render(request, 'album/edit-album.html', context)
 
 
-def delete_album(request):
-    pass
+def delete_album(request, pk):
+    album = Album.objects.filter(pk=pk).get()
+    form = DeleteAlbumForm(request.POST or None, instance=album)
+    if form.is_valid():
+        form.save()
+        return redirect('index')
+
+    context = {
+        'form': form,
+        'album': album,
+    }
+
+    return render(request, 'album/delete-album.html', context)
 
 
 def profile_details(request):
-    pass
+    profile = get_user_profile()
+    albums_count = Album.objects.all().count()
+
+    context = {
+        'profile': profile,
+        'albums_count': albums_count,
+    }
+
+    return render(request, 'profile/profile-details.html', context)
 
 
 def delete_profile(request):
-    pass
+    profile = get_user_profile()
+    albums = Album.objects.all()
+
+    if request.method == 'POST':
+        profile.delete()
+        albums.delete()
+        return redirect('index')
+
+    return render(request, 'profile/profile-delete.html')

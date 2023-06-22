@@ -57,7 +57,7 @@ class Album(models.Model):
         null=True,
     )
 
-    image_url = models.IntegerField()
+    image_url = models.URLField()
 
     price = models.FloatField(
         validators=(
