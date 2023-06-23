@@ -7,9 +7,9 @@ urlpatterns = (
     path('', index, name='index'),
 
     path('add/', add_book, name='add book'),
-    path('edit/<int:pk>', edit_book, name='edit book'),
-    path('details/<int:pk>', book_details, name='book details'),
-    path('delete/<int:pk>', delete_book, name='delete book'),
+    path('edit/<int:pk>/', edit_book, name='edit book'),
+    path('details/<int:pk>/', book_details, name='book details'),
+    path('delete/<int:pk>/', delete_book, name='delete book'),
 
     path('profile/', include([
         path('', profile_details, name='profile details'),

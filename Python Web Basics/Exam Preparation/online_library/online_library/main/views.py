@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 
-from online_library.main.forms import CreateProfileForm, CreateBookForm, EditBookForm
-from online_library.main.models import Book
-from online_library.processors import get_profile
+from online_library.main.forms import CreateProfileForm, CreateBookForm, EditBookForm, EditProfileForm, \
+    DeleteProfileForm
+from online_library.main.models import Book, Profile
 
 
 def create_profile(request):
@@ -19,7 +19,7 @@ def create_profile(request):
 
 
 def index(request):
-    profile = get_profile
+    profile = Profile.objects.first()
 
     if not profile:
         return redirect('create profile')
@@ -45,20 +45,22 @@ def add_book(request):
 
 
 def edit_book(request, pk):
-    book = Book.objects.filter(pk=pk)
+    book = Book.objects.filter(pk=pk).get()
     form = EditBookForm(request.POST or None, instance=book)
     if form.is_valid():
         form.save()
+        return redirect('index')
 
     context = {
         'form': form,
+        'book': book,
     }
 
     return render(request, 'book/edit-book.html', context)
 
 
 def book_details(request, pk):
-    book = Book.objects.filter(pk=pk)
+    book = Book.objects.filter(pk=pk).get()
 
     context = {
         'book': book,
@@ -68,19 +70,43 @@ def book_details(request, pk):
 
 
 def delete_book(request, pk):
-    book = Book.objects.filter(pk=pk)
+    book = Book.objects.filter(pk=pk).get()
     book.delete()
 
     return redirect('index')
 
 
 def profile_details(request):
-    pass
+    return render(request, 'profile/profile.html')
 
 
 def edit_profile(request):
-    pass
+    profile = Profile.objects.first()
+    form = EditProfileForm(request.POST or None, instance=profile)
+    if form.is_valid():
+        form.save()
+        return redirect('profile details')
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'profile/edit-profile.html', context)
 
 
 def delete_profile(request):
-    pass
+    profile = Profile.objects.first()
+    books = Book.objects.all()
+
+    form = DeleteProfileForm(request.POST or None, instance=profile)
+    if form.is_valid():
+        form.save()
+        books.delete()
+        return redirect('index')
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'profile/delete-profile.html', context)
+

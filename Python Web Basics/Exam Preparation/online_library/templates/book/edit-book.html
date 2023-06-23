@@ -3,7 +3,7 @@
 {% block content %}
     <!-- Edit Book Page -->
     <section id="edit-page" class="edit">
-        <form id="edit-form" action="{% url 'edit book' %}" method="post">
+        <form id="edit-form" action="{% url 'edit book' pk=book.pk %}" method="post">
             <fieldset>
                 <legend>Edit Book</legend>
                 {{ form }}
