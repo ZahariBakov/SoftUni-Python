@@ -1,7 +1,7 @@
 from django.urls import path
 
 from cbv_demos.web.views import list_articles, ArticlesListView, RedirectToArticlesView, ArticleDetailView, \
-    ArticlesCreateView
+    ArticlesCreateView, ArticleDeleteView
 
 urlpatterns = (
     path('', list_articles, name='list articles'),
@@ -9,5 +9,6 @@ urlpatterns = (
     # path('cbv/<int:pk>/', ArticlesListView.as_view(), name='list articles cbv'),
     path('cbv/<int:pk>/', ArticleDetailView.as_view(), name='article detail'),
     path('cbv/create/', ArticlesCreateView.as_view(), name='create article'),
+    path('cbv/delete/<int:pk>/', ArticleDeleteView.as_view(), name='delete article'),
     path('redirect-to-articles/', RedirectToArticlesView.as_view(), name='redirect to articles'),
 )

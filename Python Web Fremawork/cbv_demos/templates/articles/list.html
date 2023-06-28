@@ -20,6 +20,7 @@
                 {#    {% for article in article_list %}    #}
                 <li>
                     <a href="{% url 'article detail' article.pk %}">{{ article.pk }} - {{ article.title }}</a>
+                    <a href="{% url 'delete article' article.pk %}">Delete</a>
                 </li>
             {% endfor %}
         </ul>
@@ -31,6 +32,7 @@
             {% for article in articles %}
                 <li>
                     <a href="{% url 'article detail' article.pk %}">{{ article.pk }} - {{ article.title }}</a>
+                    <a href="{% url 'delete article' article.pk %}">Delete</a>
                 </li>
             {% endfor %}
         </ul>

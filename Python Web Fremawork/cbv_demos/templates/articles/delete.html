@@ -1,0 +1,5 @@
+<form action="{% url 'delete article' object.pk %}" method="post">
+    {{ form }}
+    <button>Delete</button>
+    {% csrf_token %}
+</form>

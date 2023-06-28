@@ -1,3 +1,4 @@
+from django.forms import modelform_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic as views
@@ -115,11 +116,55 @@ class ArticleDetailView(views.DetailView):
     template_name = 'articles/detail.html'
 
 
-class ArticlesCreateView(views.CreateView):
+# def ArticleForm(forms.ModelForm):
+#     pass
+
+# Forms:
+# 1. Auto created (default)
+# 2. `form_class` - return class
+# 3. `get_form_class` - return class
+# 4. `get_form` - return instance
+
+
+class DisabledFormFieldsMixin:
+    disabled_fields = ()
+
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)
+
+        for field in self.disabled_fields:
+            form.fields[field].widget.attrs['disabled'] = 'disabled'
+            form.fields[field].widget.attrs['readonly'] = 'readonly'
+
+        return form
+
+
+class ArticlesCreateView(DisabledFormFieldsMixin, views.CreateView):
     model = Article
     template_name = 'articles/create.html'
+    fields = '__all__'
+    success_url = reverse_lazy('list articles cbv')
 
-    fields = ('title', 'content')
+    disabled_fields = ('title',)  # Not built-in
+
+    # form_class = ArticleForm
+
+    # def get_form_class(self):
+    #     pass
+
+
+class ArticleUpdateView(views.UpdateView):
+    pass
+
+
+class ArticleDeleteView(DisabledFormFieldsMixin, views.DeleteView):
+    model = Article
+    template_name = 'articles/delete.html'
+    form_class = modelform_factory(
+        Article,
+        fields=('title', 'content')
+    )
+    disabled_fields = ('title', 'content')
 
 
 class RedirectToArticlesView(views.RedirectView):
