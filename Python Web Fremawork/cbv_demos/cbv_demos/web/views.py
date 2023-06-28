@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views import generic as views
 
 from cbv_demos.web.models import Article
@@ -61,7 +62,7 @@ class BaseView:
 
 
 # class ArticlesListView(views.View):
-#     def get(self, request):
+#     def get(self, request, *args, **kwargs):
 #         # def get_context_data(....):...
 #         context = {
 #             'articles': Article.objects.all(),
@@ -70,19 +71,33 @@ class BaseView:
 #         return render(request, 'articles/list.html', context)
 
 
-class ArticlesListView(views.TemplateView):
+# class ArticlesListView(views.TemplateView):
+#     template_name = 'articles/list.html'
+#
+#     # static data
+#     # extra_context = {
+#     #     'articles': Article.objects.all(),
+#     # }
+#
+#     # dynamic data
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['articles'] = Article.objects.all()
+#         return context
+
+
+class ArticlesListView(views.ListView):
     template_name = 'articles/list.html'
+    model = Article
+    # In this view by default:
+    # content['object_list'] = Article.object.all()
+    # 'object_list' is default name
+    context_object_name = 'articles' # Use default - `object_list` is good enough.
+    paginate_by = 15
 
-    # static data
-    # extra_context = {
-    #     'articles': Article.objects.all(),
-    # }
 
-    # dynamic data
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['articles'] = Article.objects.all()
-        return context
+class RedirectToArticlesView(views.RedirectView):
+    url = reverse_lazy('list articles cbv')
 
 
 print(ArticlesListView.as_view())

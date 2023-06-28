@@ -1,7 +1,42 @@
-<ul>
-    {% for article in articles %}
-        <li>
-            {{ article.title }}
-        </li>
-    {% endfor %}
-</ul>
+<style>
+    .lists {
+        display: flex;
+    }
+</style>
+
+<div class="lists">
+    <div>
+        <h2>Object_list items</h2>
+        <ul>
+            {% for article in object_list %}
+                {#        Work with this name too. Name of `Model` with underscore. #}
+                {#    {% for article in article_list %}    #}
+                <li>
+                    {{ article.pk }} - {{ article.title }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div>
+        <h2>Articles items</h2>
+        <ul>
+            {% for article in articles %}
+                <li>
+                    {{ article.pk }} - {{ article.title }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+{% endif %}
+
+{{ page_obj.number }}
+{#{{ page_obj.end_index }}#}
+
+{% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
+{% endif %}
