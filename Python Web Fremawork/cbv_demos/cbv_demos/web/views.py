@@ -92,8 +92,34 @@ class ArticlesListView(views.ListView):
     # In this view by default:
     # content['object_list'] = Article.object.all()
     # 'object_list' is default name
-    context_object_name = 'articles' # Use default - `object_list` is good enough.
+    context_object_name = 'articles'  # Use default - `object_list` is good enough.
     paginate_by = 15
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        search = self.request.GET.get('search', '')
+        queryset = queryset.filter(title__icontains=search)
+        return queryset
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['search'] = self.request.GET.get('search', '')
+        return context
+
+    # Article.objects.filter(name__icontains=search)
+
+
+class ArticleDetailView(views.DetailView):
+    model = Article
+    template_name = 'articles/detail.html'
+
+
+class ArticlesCreateView(views.CreateView):
+    model = Article
+    template_name = 'articles/create.html'
+
+    fields = ('title', 'content')
 
 
 class RedirectToArticlesView(views.RedirectView):

@@ -4,6 +4,13 @@
     }
 </style>
 
+<a href="{% url 'create article' %}">Create</a>
+
+<form action="{% url 'list articles cbv' %}?page={{ page_obj.number }}">
+    <input name="search" value="{{ search }}">
+    <button>Search by title</button>
+</form>
+
 <div class="lists">
     <div>
         <h2>Object_list items</h2>
@@ -12,7 +19,7 @@
                 {#        Work with this name too. Name of `Model` with underscore. #}
                 {#    {% for article in article_list %}    #}
                 <li>
-                    {{ article.pk }} - {{ article.title }}
+                    <a href="{% url 'article detail' article.pk %}">{{ article.pk }} - {{ article.title }}</a>
                 </li>
             {% endfor %}
         </ul>
@@ -23,7 +30,7 @@
         <ul>
             {% for article in articles %}
                 <li>
-                    {{ article.pk }} - {{ article.title }}
+                    <a href="{% url 'article detail' article.pk %}">{{ article.pk }} - {{ article.title }}</a>
                 </li>
             {% endfor %}
         </ul>
@@ -31,12 +38,11 @@
 </div>
 
 {% if page_obj.has_previous %}
-    <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+    <a href="?page={{ page_obj.previous_page_number }}&search={{ search }}">&lt;</a>
 {% endif %}
 
-{{ page_obj.number }}
-{#{{ page_obj.end_index }}#}
+{{ page_obj.number }} / {{ paginator.num_pages }}
 
 {% if page_obj.has_next %}
-    <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
+    <a href="?page={{ page_obj.next_page_number }}&search={{ search }}">&gt;</a>
 {% endif %}
