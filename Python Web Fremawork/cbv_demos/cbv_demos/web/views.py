@@ -166,9 +166,16 @@ class ArticleDeleteView(DisabledFormFieldsMixin, views.DeleteView):
     )
     disabled_fields = ('title', 'content')
 
+    def get_form_kwargs(self):
+        instance = self.get_object()
+        form_kwargs = super().get_form_kwargs()
+        form_kwargs.update(instance=instance)
+
+        return form_kwargs
+
 
 class RedirectToArticlesView(views.RedirectView):
     url = reverse_lazy('list articles cbv')
 
 
-print(ArticlesListView.as_view())
+# print(ArticlesListView.as_view())
