@@ -26,7 +26,7 @@ def list_articles(request):
         'articles': Article.objects.all(),
     }
 
-    return render(request, 'article/list.html', context)
+    return render(request, 'articles/list.html', context)
 
 
 # views.CreateView
@@ -40,13 +40,49 @@ def list_articles(request):
 #         pass
 
 
-class ArticlesListView(views.View):
-    # def __pos__(self):
-    #     pass
+class BaseView:
+    def get(self, request):
+        pass
 
-    def get(self):
-        context = {
-            'articles': Article.objects.all(),
-        }
+    def post(self, request):
+        pass
 
-        return render(self.request, 'article/list.html', context)
+    @classmethod
+    def as_view(cls):
+        self = cls()
+
+        def view(request):
+            if request.method == 'GET':
+                return self.get(request)
+            else:
+                return self.post(request)
+
+        return view
+
+
+# class ArticlesListView(views.View):
+#     def get(self, request):
+#         # def get_context_data(....):...
+#         context = {
+#             'articles': Article.objects.all(),
+#         }
+#         # def render_to_response(...):...
+#         return render(request, 'articles/list.html', context)
+
+
+class ArticlesListView(views.TemplateView):
+    template_name = 'articles/list.html'
+
+    # static data
+    # extra_context = {
+    #     'articles': Article.objects.all(),
+    # }
+
+    # dynamic data
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['articles'] = Article.objects.all()
+        return context
+
+
+print(ArticlesListView.as_view())
