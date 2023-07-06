@@ -34,7 +34,8 @@ def pet_details(request, username, pet_name):
 
 def edit_pet(request, username, pet_name):
     pet = Pet.objects.filter(slug=pet_name).first()
-    form = PetEditForm(request.POST, instance=pet)
+
+    form = PetEditForm(request.POST or None, instance=pet)
 
     if form.is_valid():
         form.save()
@@ -50,4 +51,20 @@ def edit_pet(request, username, pet_name):
 
 
 def delete_pet(request, username, pet_name):
-    return render(request, 'pets/pet-delete-page.html')
+    pet = Pet.objects.filter(slug=pet_name).first()
+    form = PetDeleteForm(instance=pet)
+
+    if request.method == 'POST':
+        form = PetDeleteForm(request.POST, instance=pet)
+        if form.is_valid():
+            form.save()
+            # pet.delete()
+        return redirect('profile details', pk=1)
+
+    context = {
+        'form': form,
+        'username': username,
+        'pet_name': pet_name,
+    }
+
+    return render(request, 'pets/pet-delete-page.html', context)
