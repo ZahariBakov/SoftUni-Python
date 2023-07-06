@@ -1,12 +1,16 @@
 # app_auth/views.py
+
 from django import forms
 from django.contrib.auth import views as auth_views, login, authenticate, get_user_model
 from django.contrib.auth import mixins as auth_mixins
 from django.contrib.auth import forms as auth_forms
+from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic as views
 from django.utils.translation import gettext_lazy as _
+
+UserModel = get_user_model()
 
 
 class RegisterUserForm(auth_forms.UserCreationForm):

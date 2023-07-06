@@ -124,3 +124,6 @@ LOGOUT_REDIRECT_URL = reverse_lazy('login_user')
 
 # Default URL to redirect to for **login**
 LOGIN_URL = reverse_lazy('login_user')
+
+# Defines the model for **Users**
+AUTH_USER_MODEL = 'app_auth.AppUser'
