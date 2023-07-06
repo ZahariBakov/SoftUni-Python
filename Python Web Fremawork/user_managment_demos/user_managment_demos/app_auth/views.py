@@ -10,11 +10,18 @@ from django.urls import reverse_lazy
 from django.views import generic as views
 from django.utils.translation import gettext_lazy as _
 
+from user_managment_demos.web.models import Profile
+
 UserModel = get_user_model()
 
 
 class RegisterUserForm(auth_forms.UserCreationForm):
     content = forms.BooleanField()
+
+    first_name = forms.CharField(
+        max_length=30,
+        required=True,
+    )
 
     password2 = forms.CharField(
         label=_("Repeat Password"),
@@ -26,6 +33,23 @@ class RegisterUserForm(auth_forms.UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['password1'].help_text = _('It works!')
+
+    def save(self, commit=True):
+        user = super().save(commit)
+
+        profile = Profile(
+            first_name=self.cleaned_data['first_name'],
+            user=user,
+        )
+
+        if commit:
+            profile.save()
+
+        return user
+
+    class Meta(auth_forms.UserCreationForm.Meta):
+        model = UserModel
+        fields = ('email', )
 
 
 class RegisterUserView(views.CreateView):
