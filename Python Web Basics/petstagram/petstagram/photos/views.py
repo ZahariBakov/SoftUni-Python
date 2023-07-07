@@ -32,5 +32,11 @@ def photo_details(request, pk):
     return render(request, 'photos/photo-details-page.html', context)
 
 
-def edit_photo(request):
+def edit_photo(request, pk):
     return render(request, template_name='photos/photo-edit-page.html')
+
+
+def delete_photo(request, pk):
+    photo = Photo.objects.filter(pk=pk).get()
+    photo.delete()
+    return redirect('home page')

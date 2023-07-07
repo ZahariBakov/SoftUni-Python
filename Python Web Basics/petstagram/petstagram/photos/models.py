@@ -12,6 +12,7 @@ class Photo(models.Model):
             validate_file_size,
         )
     )
+
     description = models.TextField(
         null=True,
         blank=True,
@@ -19,10 +20,18 @@ class Photo(models.Model):
             MinLengthValidator(10),
         )
     )
+
+    location = models.CharField(
+        max_length=30,
+        blank=True,
+        null=True,
+    )
+
     tagged_pets = models.ManyToManyField(
         Pet,
         blank=True
     )
+
     date_of_publication = models.DateField(
         auto_now=True
     )

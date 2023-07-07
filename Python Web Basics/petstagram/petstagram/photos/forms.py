@@ -7,6 +7,10 @@ class PhotoBaseForm(forms.ModelForm):
     class Meta:
         model = Photo
         fields = '__all__'
+        labels = {
+            'photo': 'Photo file',
+            'tagged_pets': 'Tag Pets',
+        }
 
 
 class PhotoCreateForm(PhotoBaseForm):
@@ -14,4 +18,5 @@ class PhotoCreateForm(PhotoBaseForm):
 
 
 class PhotoEditForm(PhotoBaseForm):
-    pass
+    class Meta:
+        exclude = ['photo']
