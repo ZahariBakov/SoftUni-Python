@@ -108,7 +108,7 @@
             <!-- Start Tagged Pets -->
             {% for pet in photo.tagged_pets.all %}
                 <!-- Link to First Tagged Pet Details Page-->
-                <a href="{% url 'pet details' username="hardcoded" pet_name=pet.slug %}">
+                <a href="{% url 'pet details' username="username" pet_name=pet.slug %}">
                     <p class="message">
                         <b>{{ pet.name }}</b>
                     </p>
@@ -132,10 +132,9 @@
                     </h3>
                 </div>
                 <!-- Start Add Comments Form -->
-                <form method="post" action="#">
-                    <label for="id_body">Body:</label>
-                    <textarea name="body" cols="40" rows="10" placeholder="Add comment..." maxlength="300"
-                              required="" id="id_body"></textarea>
+                <form method="post" action="{% url 'comment' photo_id=photo.pk %}">
+                    {% csrf_token %}
+                    {{ comment_form }}
                     <button type="submit">Post</button>
                 </form>
                 <!-- End Add Comments Form -->

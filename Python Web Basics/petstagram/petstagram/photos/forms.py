@@ -19,4 +19,5 @@ class PhotoCreateForm(PhotoBaseForm):
 
 class PhotoEditForm(PhotoBaseForm):
     class Meta:
+        model = Photo
         exclude = ['photo']
