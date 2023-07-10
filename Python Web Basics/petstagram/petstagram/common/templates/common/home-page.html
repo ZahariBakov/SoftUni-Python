@@ -6,7 +6,7 @@
         <div class="col-9">
 
             <!-- Start Searchbar Form -->
-            <form class="searchbar" method="post">
+            <form class="searchbar" method="post" action="{% url 'home page' %}">
                 {% csrf_token %}
                 {{ search_form }}
                 <button>
