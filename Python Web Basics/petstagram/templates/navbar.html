@@ -31,7 +31,7 @@
 
                     {% if request.user.is_authenticated %}
                         <li class="nav-item">
-                            <a href="{% url 'profile details' 1 %}">
+                            <a href="{% url 'profile details' pk=request.user.pk %}">
                                 <i>{{ request.user.username }}</i>
                             </a>
                         </li>

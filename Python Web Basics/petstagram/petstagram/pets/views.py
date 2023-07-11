@@ -12,8 +12,11 @@ def add_pet(request):
         form = PetAddForm(request.POST)
 
         if form.is_valid():
-            form.save()
-            return redirect('profile details', pk=1)
+            pet = form.save(commit=False)
+            pet.user = request.user
+            pet.save()
+
+            return redirect('profile details', pk=request.user.pk)
 
     context = {
         'form': form,

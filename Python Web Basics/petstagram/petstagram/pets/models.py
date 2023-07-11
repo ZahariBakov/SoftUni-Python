@@ -1,5 +1,8 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.template.defaultfilters import slugify
+
+UserModel = get_user_model()
 
 
 class Pet(models.Model):
@@ -14,6 +17,11 @@ class Pet(models.Model):
     slug = models.SlugField(
         unique=True,
         editable=False
+    )
+
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.DO_NOTHING,
     )
 
     def save(self, *args, **kwargs):

@@ -1,13 +1,23 @@
-from django.shortcuts import render
+from django.http import HttpResponse
+from django.templatetags.static import static
 from django.urls import reverse_lazy
 from django.views import generic as views
-from django.contrib.auth import views as auth_views, login
+from django.contrib.auth import views as auth_views, login, get_user_model
 
 from petstagram.accounts.forms import RegisterUserForm
-from petstagram.pets.models import Pet
+
+UserModel = get_user_model()
 
 
-class RegisterUserView(views.CreateView):
+class OnlyAnonymousMixin:
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return HttpResponse(self.get_success_url())
+
+        return super().dispatch(request, *args, **kwargs)
+
+
+class RegisterUserView(OnlyAnonymousMixin, views.CreateView):
     template_name = 'accounts/register-page.html'
     form_class = RegisterUserForm
     success_url = reverse_lazy('home page')
@@ -41,19 +51,41 @@ class LogoutUserView(auth_views.LogoutView):
     pass
 
 
-def show_profile_details(request, pk):
-    pets = Pet.objects.all()
+class ProfileDetailsView(views.DetailView):
+    template_name = 'accounts/profile-details-page.html'
+    # To work provide either `model`, `queryset` or `get_queryset`
+    model = UserModel
 
-    context = {
-        'pets': pets,
-    }
+    profile_image = static('images/person.png')
 
-    return render(request, 'accounts/profile-details-page.html', context)
+    def get_profile_image(self, **kwargs):
+        if self.object.profile_picture is not None:
+            return self.object.profile_picture
+
+        return self.profile_image
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['profile_image'] = self.get_profile_image()
+        context['pets'] = self.request.user.pet_set.all()
+
+        return context
 
 
-def edit_profile(request, pk):
-    return render(request, template_name='accounts/profile-edit-page.html')
+# def show_profile_details(request, pk):
+#     pets = Pet.objects.all()
+#
+#     context = {
+#         'pets': pets,
+#     }
+#
+#     return render(request, 'accounts/profile-details-page.html', context)
 
 
-def delete_profile(request, pk):
-    return render(request, template_name='accounts/profile-delete-page.html')
+class ProfileEditView(views.UpdateView):
+    template_name = 'accounts/profile-edit-page.html'
+
+
+class ProfileDeleteView(views.DeleteView):
+    template_name = 'accounts/profile-delete-page.html'
