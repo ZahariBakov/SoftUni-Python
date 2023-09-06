@@ -1,29 +1,21 @@
 from collections import deque
 
 food_quantity = int(input())
-clients = input().split()
-queue = deque()
+orders = deque([int(x) for x in input().split()])
 
-for ch in clients:
-    queue.append(int(ch))
+print(max(orders))
 
-print(max(queue))
-
-while queue:
-    current_order = queue.popleft()
+while orders:
+    current_order = orders[0]
 
     if current_order > food_quantity:
-        queue.appendleft(current_order)
         break
 
-    else:
-        food_quantity -= current_order
+    food_quantity -= current_order
+    orders.popleft()
 
-if queue:
-    final_print = []
-    while queue:
-        final_print.append(str(queue.popleft()))
-    print(f"Orders left: {' '.join(final_print)}")
+if orders:
+    print(f"Orders left: {' '.join([str(x) for x in orders])}")
 
 else:
     print("Orders complete")
