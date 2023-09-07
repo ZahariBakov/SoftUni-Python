@@ -6,10 +6,8 @@ def read_robots():
     robots_input = input().split(";")
 
     for robot in robots_input:
-        robot_detail = robot.split("-")
-        name = robot_detail[0]
-        processing_time = int(robot_detail[1])
-        result[name] = processing_time
+        name, processing_time = robot.split("-")
+        result[name] = int(processing_time)
 
     return result
 
@@ -22,7 +20,6 @@ def input_products():
 
         if command == "End":
             break
-
         else:
             result.append(command)
 
@@ -30,12 +27,12 @@ def input_products():
 
 
 def time_in_hours(seconds):
-    hours = seconds // 3600
-    minutes = (seconds % 3600) // 60
-    seconds = (seconds % 3600) % 60
-    result = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+    hours = seconds // (60 * 60)
+    seconds %= (60 * 60)
+    minutes = seconds // 60
+    seconds %= 60
 
-    return result
+    return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
 
 
 robots = read_robots()

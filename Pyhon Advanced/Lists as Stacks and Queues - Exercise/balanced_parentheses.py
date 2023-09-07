@@ -12,15 +12,14 @@ for ch in string:
     if ch in "([{":
         stack.append(ch)
 
-    else:
-        if not stack:
+    elif not stack:
             balanced = False
 
-        else:
-            opening_bracket = stack.pop()
+    else:
+        opening_bracket = stack.pop()
 
-            if pairs[opening_bracket] != ch:
-                balanced = False
+        if pairs[opening_bracket] != ch:
+            balanced = False
 
     if not balanced:
         break
